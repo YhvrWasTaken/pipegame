@@ -72,7 +72,6 @@ function upgradeChunk(chunk, block) {
 		(block.id >= "upgrade1" && block.id <= "upgrade9" && block.id.length === 8) ||
 		block.id === "upgrade10"
 	) {
-		console.log(block.id);
 		if (data.upg[25] === 1) {
 			useful = false;
 			upgraded = false;
