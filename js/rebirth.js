@@ -276,4 +276,8 @@ function rebirthEffect() {
 	world[5][5] = Block("conveyor");
 	world[5][5].r = 90;
 	world[5][6] = Block("furnace");
+
+	setTimeout(() => {
+		player.money = D(0);
+	}, 1000);
 }
