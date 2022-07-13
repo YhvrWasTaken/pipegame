@@ -65,7 +65,7 @@ function handleShopClick(x, y, btn) {
 			// . player.money = player.money.sub(item[1]);
 			consumeOnPlace = true;
 			placing = Block(item[0]);
-			moneyParticles(x, y, item[0].includes("bert") ? 50 : 10);
+			// . moneyParticles(x, y, item[0].includes("bert") ? 50 : 10);
 		}
 	} else if (y === 3) {
 		if (player.money.gte(player.maxGensCost)) {
