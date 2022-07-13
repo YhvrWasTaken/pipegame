@@ -1,0 +1,54 @@
+canvas {
+	/*! I LOVE HARDCODING AND MAKING TEMP SOLUTIONS PERMANENT */
+	position: absolute;
+	top: calc(50vh - 330px);
+	left: calc(50vw - 420px);
+	transition: 10s filter;
+}
+
+a {
+	color: #bbf;
+}
+
+a:visited {
+	color: #f8f;
+}
+
+* {
+	background-color: #111;
+	color: #eee;
+}
+
+#mobile {
+	display: none;
+}
+
+#mobile button {
+	width: 75px;
+	height: 75px;
+}
+
+#text {
+	transition: 5s opacity;
+}
+
+.lore {
+	transition: 5s opacity !important;
+	opacity: 0;
+
+	position: absolute;
+	top: 50vh;
+	left: 50vw;
+	transform: translate(-50%, -50%);
+	font-size: 50px;
+	color: black;
+	background: none;
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	pointer-events: none;
+}
+
+@media only screen and (max-width: 1350px) {
+	canvas {
+		position: inherit;
+	}
+}

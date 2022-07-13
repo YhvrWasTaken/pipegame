@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+
+<!-- free space counter script: world.reduce((a,b)=>a+b.reduce((c,d)=>c+(d.id.includes("bert")||d.id=="nothing"),0),0) -->
+
+<!--
+pipegame,
+
+a game by Yhvr.
+
+special thanks to (in no particular order):
+alez,
+æxpērïmêñt tw3n7y,
+CoolRadGamer,
+downvoid,
+Fishydids,
+Flamemaster,
+foxes1338,
+Lebossle,
+NoHaxJustPi,
+randomtuba,
+Scar1337,
+The Opposum,
+TheMKeyHolder,
+ThePaperPilot,
+TheTastyPi,
+TrueDiegeo,
+water,
+WebFloor,
+yahtzee,
+u/salbris.
+
+Thank you all! <3
+-->
+
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>pipegame</title>
+
+		<meta
+			name="description"
+			content="A webgame inspired by Miner's Haven. Build up a factory and try to make as much money as possible!"
+		/>
+		<meta name="color-scheme" content="dark" />
+		<meta
+			name="keywords"
+			content="incremental, idle, game, miners haven, yhvr"
+		/>
+		<meta name="author" content="Yhvr" />
+
+		<meta content="Pipegame" property="og:title" />
+		<meta
+			content="A webgame inspired by Miner's Haven. Build up a factory and try to make as much money as possible!"
+			property="og:description"
+		/>
+		<meta content="https://yhvr.me/pipegame/" property="og:url" />
+		<meta
+			content="https://yhvr.me/pipegame/img/thumb.png"
+			property="og:image"
+		/>
+		<meta content="#ff8888" data-react-helmet="true" name="theme-color" />
+
+		<meta name="twitter:card" content="summary_large_image" />
+
+		<link href="img/favicon.ico" rel="icon" />
+
+		<script>
+			if (!window.structuredClone)
+				console.warn("Using structuredClone polyfill");
+			window.structuredClone ??= n => JSON.parse(JSON.stringify(n));
+		</script>
+
+		<script src="js/lib/break-eternity.js"></script>
+
+		<script src="js/preload.js"></script>
+
+		<script src="js/data/conveyor.js" defer></script>
+		<script src="js/data/furnai.js" defer></script>
+		<script src="js/data/gens.js" defer></script>
+		<script src="js/data/shop.js" defer></script>
+		<script src="js/data/sidebar.js" defer></script>
+		<script src="js/data/upgrade.js" defer></script>
+
+		<script src="js/format.js" defer></script>
+		<script src="js/tooltips.js" defer></script>
+		<script src="js/shop.js" defer></script>
+		<script src="js/player.js" defer></script>
+		<script src="js/block.js" defer></script>
+		<script src="js/chunks.js" defer></script>
+		<script src="js/upgrade.js" defer></script>
+		<script src="js/rebirth.js" defer></script>
+		<script src="js/analysis.js" defer></script>
+		<script src="js/particles.js" defer></script>
+		<script src="js/sidebar.js" defer></script>
+		<script src="js/index.js" defer></script>
+		<script src="js/img.js" defer></script>
+		<script src="js/canvas.js" defer></script>
+		<script src="js/canvas-util.js" defer></script>
+		<script src="js/control.js" defer></script>
+		<script src="js/loop.js" defer></script>
+
+		<script src="js/save.js" defer></script>
+
+		<link rel="stylesheet" href="style.css" />
+	</head>
+	<body>
+		<div id="text">
+			<a href="https://yhvr.me/ego" target="_blank">discord</a><br />
+			<a href="https://guilded.gg/yhvr" target="_blank">guilded</a><br />
+			<a href="https://gitlab.com/yhvr/pipegame" target="_blank">source code</a><br />
+			<strong>i've lost interest in this. it's unlikely i will update this any more.</strong><br>
+			sorry!<br><br>
+			LMB to place/pickup/swap<br />
+			ShiftLMB to place multiple/copy block<br />
+			[shift] R or scroll to rotate held/placed block<br />
+			D or RMB to delete held/placed block<br />
+			drag RMB to delete multiple<br />
+			A to toggle chunk analysis mode<br />
+			P to pause<br />
+			shift to see item tooltips<br />
+			accumulated <span id="fastTime"></span>s fast time<br /><br />
+			<button onclick="gid('mobile').style.display = 'block'">
+				on mobile?
+			</button>
+
+			<div id="mobile">
+				walmart mobile controls<br>
+				<button onclick="rotate()">Rotate</button>
+				<button onclick="deleteBlock()">Delete</button><br />
+				<button onclick="analyzing = !analyzing">Analyze</button>
+				<button onclick="paused = !paused">Pause</button><br />
+			</div>
+		</div>
+
+		<br />
+
+		<canvas id="canvas" width="840" height="660"></canvas>
+	</body>
+</html>
