@@ -182,7 +182,7 @@ const upgrades = {
 		}
 		return false;
 	},
-	upgradett6: value => value.add(250),
+	upgradett6: (value, data) => value.add(250 * data.stacks),
 	upgradett7: upgradeWithCap(27, 5, 1.4),
 
 	upgrader1: (value, data) =>
@@ -216,6 +216,8 @@ const upgrades = {
 				value.div(2),
 				structuredClone(chunk.color),
 				[x, y],
+				[Math.clamp(chunk.offset[0] + Math.random() / 25 - 0.02, -0.25, 0.25),
+				Math.clamp(chunk.offset[1] + Math.random() / 25 - 0.02, -0.25, 0.25)],
 				structuredClone(data),
 			],
 		};

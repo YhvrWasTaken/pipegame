@@ -92,16 +92,17 @@ function draw(diff) {
 		drawLoading();
 	} else {
 		drawBoard();
+		CanvasAnimator.update();
 
 		ctx.resetTransform();
 
 		drawSidebar();
 		drawCursor(diff);
 
-		if (tooltip) drawHoverQuery();
-
 		tickParticles(diff);
 		drawParticles(diff);
+
+		if (tooltip) drawHoverQuery();
 	}
 }
 
@@ -120,33 +121,55 @@ function drawBoard() {
 
 	ctx.resetTransform();
 	// All the chunks on the board
-	chunks.forEach(chunk => {
-		if (chunk.data.upg[4] === 1)
-			drawRect(chunk.x * 60 - 12, chunk.y * 60 - 12, 12, 12, `red`);
-		if (chunk.data.upg[4] === 2)
-			drawRect(chunk.x * 60, chunk.y * 60 - 12, 12, 12, `aqua`);
-		if (chunk.data.upg[7] === 1)
-			drawRect(chunk.x * 60 - 12, chunk.y * 60, 12, 12, `white`);
-		if (chunk.data.upg[18] === 1)
-			drawRect(chunk.x * 60, chunk.y * 60, 12, 12, `magenta`);
-		if (chunk.data.t === "tri")
-			drawTriangleChunk(
-				chunk.x * 60 - 10,
-				chunk.y * 60 - 10,
-				`rgb(${chunk.color.join(", ")})`
-			);
-		else if (chunk.data.sv.eq(1.0e12)) {
-			drawImage("nubert", chunk.x * 60 - 30, chunk.y * 60 - 30, 0, 0.333);
-			ctx.resetTransform();
-		} else
-			drawRect(
-				chunk.x * 60 - 10,
-				chunk.y * 60 - 10,
-				20,
-				20,
-				`rgb(${chunk.color.join(", ")})`
-			);
-	});
+	chunks.forEach(chunk => drawChunk(chunk));
+	if (analyzing && openAnalysis && chunks.includes(openAnalysis)) {
+		drawChunk(openAnalysis, true);
+	}
+}
+
+function drawChunk(chunk, isAnal = false) {
+	const x = chunk.x + chunk.offset[0];
+	const y = chunk.y + chunk.offset[1];
+	if (chunk.data.upg[4] === 1)
+		drawRect(x * 60 - 12, y * 60 - 12, 12, 12, `red`);
+	if (chunk.data.upg[4] === 2)
+		drawRect(x * 60, y * 60 - 12, 12, 12, `aqua`);
+	if (chunk.data.upg[7] === 1)
+		drawRect(x * 60 - 12, y * 60, 12, 12, `white`);
+	if (chunk.data.upg[18] === 1)
+		drawRect(x * 60, y * 60, 12, 12, `magenta`);
+	if (chunk.data.t === "tri") {
+		drawTriangleChunk(
+			x * 60 - 10,
+			y * 60 - 10,
+			`rgb(${chunk.color.join(", ")})`
+		);
+		if (chunk.data.stacks > 1) {
+			ctx.fillStyle = "rgba(0, 0, 0, 0.2)";
+			ctx.beginPath();
+			ctx.moveTo(x * 60, y * 60 - 6);
+			ctx.lineTo(x * 60 + 6, y * 60 + 6);
+			ctx.lineTo(x * 60 - 6, y * 60 + 6);
+			ctx.fill();
+		}
+	} else if (chunk.data.sv.eq(1.0e12)) {
+		drawImage("nubert", x * 60 - 30, y * 60 - 30, 0, 0.333);
+		ctx.resetTransform();
+	} else
+		drawRect(
+			x * 60 - 10,
+			y * 60 - 10,
+			20,
+			20,
+			`rgb(${chunk.color.join(", ")})`
+		);
+	
+	if (isAnal) {
+		ctx.fillStyle = `rgba(255, 210, 128, ${Math.sin(Date.now() / 250) * 0.2 + 0.45})`
+		ctx.beginPath();
+		ctx.arc(x * 60, y * 60, 20, 0, 2 * Math.PI);
+		ctx.fill();
+	}
 }
 
 function drawCursor() {

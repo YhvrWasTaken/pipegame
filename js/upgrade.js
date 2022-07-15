@@ -95,7 +95,11 @@ function upgradeChunk(chunk, block) {
 		}
 	}
 
-	if (upgraded) data.path.push([block.id, useful]);
+	if (upgraded) {
+		data.path.unshift([block.id, useful]);
+		// limit data.path to prevent memory leak from over-looping
+		data.path.splice(150);
+	}
 
 	if (!useful) color = [255, 0, 0];
 
