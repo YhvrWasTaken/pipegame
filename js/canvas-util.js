@@ -68,3 +68,27 @@ function drawTriangleChunk(cx, cy, col) {
 	ctx.lineTo(cx, cy + 20);
 	ctx.fill();
 }
+
+const CanvasAnimator = {
+	queue: [],
+	add(func, ticks) {
+		this.queue.push({
+			func,
+			maxTicks: ticks,
+			ticks: 0
+		});
+	},
+	update() {
+		let removeDeezNutsLmao = [];
+		for (const animation of this.queue) {
+			animation.func(animation.ticks);
+			animation.ticks++;
+			if (animation.ticks >= animation.maxTicks) {
+				removeDeezNutsLmao.push(animation);
+			}
+		}
+		for (const animation of removeDeezNutsLmao) {
+			remove(this.queue, animation);
+		}
+	}
+}
