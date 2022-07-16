@@ -10,8 +10,13 @@ const control = {
 	multiplace: false,
 };
 
+let multibreakTimeout = 0;
 // HOLY SHIT I HATE THE CONTROLS
 canvas.addEventListener("mousedown", e => {
+	mx = Math.max(e.clientX - canvas.offsetLeft + window.scrollX, 0);
+	my = Math.max(e.clientY - canvas.offsetTop + window.scrollY, 0);
+	cellX = floor(mx / 60);
+	cellY = floor(my / 60);
 	e.preventDefault();
 
 	if (cellX > 10) {
@@ -25,8 +30,9 @@ canvas.addEventListener("mousedown", e => {
 	}
 
 	if (e.button === 2) {
+		if (placing.is("Nothing")) control.multibreak = true;
+		else if (!multibreakTimeout) multibreakTimeout = setTimeout(() => control.multibreak = true, 300);
 		deleteBlock();
-		control.multibreak = true;
 		return;
 	}
 
@@ -91,7 +97,11 @@ canvas.addEventListener("mousedown", e => {
 
 window.addEventListener("mouseup", e => {
 	if (e.button === 0) control.multiplace = false;
-	if (e.button === 2) control.multibreak = false;
+	if (e.button === 2) {
+		control.multibreak = false;
+		clearInterval(multibreakTimeout);
+		multibreakTimeout = 0;
+	}
 });
 
 window.addEventListener("keypress", e => {

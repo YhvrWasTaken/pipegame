@@ -38,6 +38,8 @@ let mx = 0,
 canvas.addEventListener("mousemove", e => {
 	mx = Math.max(e.clientX - canvas.offsetLeft + window.scrollX, 0);
 	my = Math.max(e.clientY - canvas.offsetTop + window.scrollY, 0);
+	cellX = floor(mx / 60);
+	cellY = floor(my / 60);
 	cursorVisible = true;
 
 	if (cellX >= 11) return;
