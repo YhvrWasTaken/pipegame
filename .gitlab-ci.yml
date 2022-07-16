@@ -1,12 +1,14 @@
+# Full project: https://gitlab.com/pages/plain-html
+
 pages:
   stage: deploy
   script:
     - mkdir .public
-    - cp -r * .public
+    - cp -r ./* .public
+    - rm -rf public
     - mv .public public
   artifacts:
     paths:
       - public
-  only:
-    - main
-
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
