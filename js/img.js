@@ -45,6 +45,9 @@ let imgs = [
 	"yes-button",
 	"no-button",
 
+	"toggle-true",
+	"toggle-false",
+
 	"conveyor",
 	"conveyor2",
 	"conveyor3",

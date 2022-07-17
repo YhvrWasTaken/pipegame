@@ -8,8 +8,8 @@ const Sidebar = Interface.add({
 	zIndex: 1,
 	draw() {
 		const linearGradient = ctx.createLinearGradient(0, 0, 0, this.height * 60);
-		linearGradient.addColorStop(0, "#888");
-		linearGradient.addColorStop(1, "#889092");
+		linearGradient.addColorStop(0, player.dark ? "#222" : "#888");
+		linearGradient.addColorStop(1, player.dark ? "#223032" : "#889092");
 		this.background(linearGradient);
 	}
 });

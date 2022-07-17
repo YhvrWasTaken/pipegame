@@ -67,7 +67,7 @@ function draw(diff) {
 	ctx.resetTransform();
 	ctx.globalAlpha = 1;
 	ctx.textAlign = "start";
-	ctx.fillStyle = "#888";
+	ctx.fillStyle = player.dark ? "#222" : "#888";
 	ctx.fillRect(0, 0, canvas.width, canvas.height);
 
 	// Tick smoothing...

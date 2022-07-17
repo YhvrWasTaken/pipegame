@@ -9,6 +9,7 @@ const D = n => new Decimal(n);
 
 console.log("%cpipegame;", "font-size: 25px; font-weight: bold;");
 console.log("%cmade w/ <3 by yhvr", "font-style: italic");
+console.log("%cmaintained by scar1337", "font-style: italic");
 console.log("%cusing break_eternity.js by patashu", "font-style: italic");
 console.log(
 	"%cIf you don't know what you're doing, you might want to close this.",

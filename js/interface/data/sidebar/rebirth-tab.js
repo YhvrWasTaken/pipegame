@@ -63,7 +63,6 @@ const RebirthTab = Interface.add({
 				else if (this.rebirth.deny.hasCursor(x, y)) rebirthSubMenu = "info";
 				break;
 			case "rebshop":
-				console.log(this.shop.container.hasCursor(x, y))
 				if (this.shop.container.hasCursor(x, y)) {
 					let item = rebirthShopItems[rebirthShopPage][Math.floor(y) - this.shop.container.top];
 					if (player.money.gte(item[1]) && placing.is("nothing")) {

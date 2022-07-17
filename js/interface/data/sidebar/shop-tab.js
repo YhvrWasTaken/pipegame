@@ -53,7 +53,7 @@ const SidebarShopTab = Interface.add({
 		});
 	},
 	onMousedown(x, y) {
-		if (y >= 2 && y <= 5) {
+		if (y >= 2 && y < 6) {
 			analyzing = false;
 			const page = shopItems[sidebarShopPage];
 			if (page === undefined) return;

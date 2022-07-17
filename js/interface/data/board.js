@@ -6,7 +6,7 @@ Interface.add({
 	width: -3,
 	height: -1,
 	draw() {
-		this.background("#666");
+		this.background(player.dark ? "#151515" : "#666");
 	}
 });
 const Board = Interface.add({
@@ -16,7 +16,7 @@ const Board = Interface.add({
 	height: 11,
 	draw() {
 		if (paused) this.background("#222");
-		else this.background("#444");
+		else this.background(player.dark ? "#333" : "#444");
 	
 		// All the blocks on the board
 		world.forEach((what, x) => {
