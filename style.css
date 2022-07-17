@@ -1,8 +1,8 @@
 canvas {
-	/*! I LOVE HARDCODING AND MAKING TEMP SOLUTIONS PERMANENT */
 	position: absolute;
-	top: calc(50vh - 330px);
-	left: calc(50vw - 420px);
+	top: 50vh;
+	left: 50vw;
+	transform: translate(-50%, -50%);
 	transition: 10s filter;
 }
 
@@ -45,10 +45,4 @@ a:visited {
 	background: none;
 	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 	pointer-events: none;
-}
-
-@media only screen and (max-width: 1350px) {
-	canvas {
-		position: inherit;
-	}
 }
