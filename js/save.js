@@ -47,19 +47,31 @@ function loadWorld() {
 	});
 }
 
-function loadPlayer() {
-	let tempPlayer = JSON.parse(localStorage.getItem("pipegame-player-yhvr-v2"));
-	for (const key in tempPlayer) {
-		// TODO nested?
-		if (
-			tempPlayer[key] === null ||
-			tempPlayer[key] === undefined ||
-			isNaN(tempPlayer[key])
-		)
-			continue;
-		if (typeof tempPlayer[key] === "string") player[key] = D(tempPlayer[key]);
-		else player[key] = tempPlayer[key];
+const migrations = {};
+
+function decimalise(target) {
+	for (const i in target) {
+		if (typeof target[i] === "string") target[i] = D(target[i]);
+		else if (typeof target[i] === "object") decimalise(target[i]);
 	}
+	return target;
+}
+
+function coercePlayer(target, source) {
+	if (target === null || target === undefined || checkNaN(target)) return source;
+	if (typeof target !== "object") return target;
+	let fillObject;
+	if (source.constructor === Array) fillObject = [];
+	else fillObject = {};
+	for (const prop of Object.keys(source)) {
+		fillObject[prop] = coercePlayer(target[prop], source[prop]);
+	}
+	return fillObject;
+}
+
+function loadPlayer() {
+	let tempPlayer = decimalise(JSON.parse(localStorage.getItem("pipegame-player-yhvr-v2")));
+	deepAssign(player, coercePlayer(tempPlayer, initialPlayerStart));
 
 	player.maxGensCost = D(genCapCosts[player.maxGens + 1]);
 	lastMoney = player.money;

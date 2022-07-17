@@ -36,38 +36,26 @@ let mx = 0,
 
 // TODO why is this here?
 canvas.addEventListener("mousemove", e => {
-	mx = Math.max(e.clientX - canvas.offsetLeft + window.scrollX, 0);
-	my = Math.max(e.clientY - canvas.offsetTop + window.scrollY, 0);
+	mx = Math.max(e.clientX - canvas.x + window.scrollX, 0);
+	my = Math.max(e.clientY - canvas.y + window.scrollY, 0);
 	cellX = floor(mx / 60);
 	cellY = floor(my / 60);
 	cursorVisible = true;
 
-	if (cellX >= 11) return;
-	if (control.multibreak) deleteBlock();
-	let ground = copyBlock(world[cellX][cellY]);
-	if (control.multiplace && ground.is("nothing")) {
-		let cost = findCost(placing.id);
-
-		if (placing.id.startsWith("gen") && currentGens >= player.maxGens)
-			return;
-
-		if (player.money.gte(cost)) {
-			player.money = player.money.sub(cost);
-			// . moneyParticles(mx / 60 - 11, my / 60, 5);
-			world[cellX][cellY] = copyBlock(placing, false);
-			if (placing.id.startsWith("gen")) currentGens++;
-		}
-	}
+	if (isLoading) return;
+	Interface.dispatchCursorEvent("mousemove", e);
 });
 
 canvas.addEventListener("mouseenter", e => {
 	cursorVisible = true;
-	mx = Math.max(e.clientX - canvas.offsetLeft, 0);
-	my = Math.max(e.clientY - canvas.offsetTop, 0);
+	mx = Math.max(e.clientX - canvas.x, 0);
+	my = Math.max(e.clientY - canvas.y, 0);
 	cellX = floor(mx / 60);
 	cellY = floor(my / 60);
 	visCellX = cellX;
 	visCellY = cellY;
+
+	if (isLoading) return;
 });
 
 canvas.addEventListener("mouseleave", () => {
@@ -79,6 +67,8 @@ function draw(diff) {
 	ctx.resetTransform();
 	ctx.globalAlpha = 1;
 	ctx.textAlign = "start";
+	ctx.fillStyle = "#888";
+	ctx.fillRect(0, 0, canvas.width, canvas.height);
 
 	// Tick smoothing...
 	// but only x60/s because I couldn't figure
@@ -93,39 +83,15 @@ function draw(diff) {
 		// Basic progress UI when images are loading
 		drawLoading();
 	} else {
-		drawBoard();
+		Interface.drawAll();
 		CanvasAnimator.update();
 
-		ctx.resetTransform();
-
-		drawSidebar();
 		drawCursor(diff);
 
 		tickParticles(diff);
 		drawParticles(diff);
 
 		if (tooltip) drawHoverQuery();
-	}
-}
-
-function drawBoard() {
-	// Background
-	if (paused) drawRect(0, 0, 660, 660, "#222");
-	else drawRect(0, 0, 660, 660, "#444");
-
-	// All the blocks on the board
-	world.forEach((what, x) => {
-		what.forEach((item, y) => {
-			if (item.is("nothing")) return;
-			drawBlock(item.id, x * 60, y * 60, item.r, 1, item.data);
-		});
-	});
-
-	ctx.resetTransform();
-	// All the chunks on the board
-	chunks.forEach(chunk => drawChunk(chunk));
-	if (analyzing && openAnalysis && chunks.includes(openAnalysis)) {
-		drawChunk(openAnalysis, true);
 	}
 }
 
@@ -156,7 +122,6 @@ function drawChunk(chunk, isAnal = false) {
 		}
 	} else if (chunk.data.sv.eq(1.0e12)) {
 		drawImage("nubert", x * 60 - 30, y * 60 - 30, 0, 0.333);
-		ctx.resetTransform();
 	} else
 		drawRect(
 			x * 60 - 10,
@@ -209,8 +174,6 @@ function drawCursor() {
 }
 
 function drawLoading() {
-	drawRect(0, 0, 840, 660, "#888");
-
 	drawText("Loading...", 50, 100, {
 		font: "50px monospace",
 	});
@@ -242,8 +205,8 @@ function tickSmooth() {
 }
 
 function drawHoverQuery() {
-	if (cellX >= 11) return;
-	const block = world[cellX][cellY];
+	if (!Board.hasCursor()) return;
+	const block = world[boardX][boardY];
 	if (block.data !== 0) {
 		drawTooltip(
 			format(block.data),
@@ -263,3 +226,18 @@ function drawHoverQuery() {
 		);
 	}
 }
+
+function resizeCanvas() {
+	canvas.width = Math.roundTo(window.innerWidth, 60);
+	canvas.height = Math.roundTo(window.innerHeight, 60);
+	canvas.x = canvas.getBoundingClientRect().x;
+	canvas.y = canvas.getBoundingClientRect().y;
+}
+
+resizeCanvas();
+
+window.addEventListener("resize", () => {
+	resizeCanvas();
+	Board.left = Interface.width < 14 ? 0 : Math.floor((Interface.width - 14) / 2);
+	Board.bottom = Interface.height < 12 ? 0 : Math.floor((Interface.height - 12) / 2);
+});

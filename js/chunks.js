@@ -6,7 +6,7 @@ let TriChunkMerger = (function() {
 	const MAX_CHUNKS_IN_SINGLE_SPOT = 40;
 	const GROUP_BULK = 8;
 	const GROUP_ANIM_SPEED = 10;
-    function triChunks() {
+	function triChunks() {
 		return chunks.filter(x => x.data.t === "tri");
 	};
 

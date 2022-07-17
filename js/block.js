@@ -28,11 +28,13 @@ function drawBlock(id, x, y, rot = 0, scale = 1, state) {
 	if (id === "nothing") return;
 	if (images[id]) drawImage(id, x, y, rot, scale);
 	else if (customDraw[id]) {
-		ctx.resetTransform();
-		ctx.setTransform(scale, 0, 0, scale, x + 30, y + 30);
+		ctx.save();
+		ctx.translate(x + 30, y + 30);
+		ctx.scale(scale, scale);
 		ctx.rotate(toRadians(rot));
 
 		customDraw[id](state);
+		ctx.restore();
 	} else {
 		drawImage("unknown", x, y, rot, scale);
 	}

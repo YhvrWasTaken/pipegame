@@ -7,4 +7,7 @@ let player = {
 	fastTime: 0,
 	rebirth: 0,
 	shards: D(0),
+	version: 0
 };
+
+const initialPlayerStart = structuredClone(player);

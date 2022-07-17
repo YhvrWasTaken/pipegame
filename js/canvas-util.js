@@ -7,18 +7,14 @@ function drawImage(img, x, y, rot = 0, scale = 1) {
 	if (image === undefined) image = images.unknown;
 	// Should i be having to do the +30s???
 	// Sets scale and origin
-	ctx.setTransform(
-		scale,
-		0,
-		0,
-		scale,
-		x + image.width / 2,
-		y + image.height / 2
-	);
+	ctx.save();
+	ctx.translate(x + image.width / 2, y + image.height / 2);
+	ctx.scale(scale, scale);
 	ctx.rotate(toRadians(rot));
 	ctx.drawImage(image, -image.width / 2, -image.height / 2);
 
 	// . ctx.drawImage(image, x, y);
+	ctx.restore();
 }
 
 // https://stackoverflow.com/a/9705160
@@ -27,8 +23,6 @@ function toRadians(deg) {
 }
 
 function drawRect(x, y, w, h, col) {
-	ctx.resetTransform();
-
 	ctx.fillStyle = col;
 	// For semi-transparent just use 4-byte hex
 	ctx.globalAlpha = 1;
@@ -48,8 +42,6 @@ function drawRect(x, y, w, h, col) {
  * @param {string} [props.max] Max width of text
  */
 function drawText(text, x, y, props = {}) {
-	ctx.resetTransform();
-
 	if (props.color !== "inherit") ctx.fillStyle = props.color ?? "#000";
 	if (props.align !== "inherit") ctx.textAlign = props.align ?? "left";
 	if (props.font !== "inherit") ctx.font = props.font ?? "12px sans-serif";

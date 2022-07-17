@@ -5,7 +5,6 @@ function drawTooltip(text, x, drawY, side = "left", width = 160, lines) {
 	if (side === "right") {
 		drawX -= width;
 	}
-	ctx.resetTransform();
 	ctx.globalAlpha = 1;
 	ctx.textAlign = "start";
 	ctx.font = "12px sans-serif";

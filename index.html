@@ -66,14 +66,10 @@ Thank you all! <3
 
 		<link href="img/favicon.ico" rel="icon" />
 
-		<script>
-			if (!window.structuredClone)
-				console.warn("Using structuredClone polyfill");
-			window.structuredClone ??= n => JSON.parse(JSON.stringify(n));
-		</script>
+		<script src="js/utils/polyfills.js"></script>
 
 		<script src="js/lib/break-eternity.js"></script>
-		<script src="js/utils/extensions.js" defer></script>
+		<script src="js/utils/extensions.js"></script>
 
 		<script src="js/preload.js"></script>
 
@@ -81,7 +77,6 @@ Thank you all! <3
 		<script src="js/data/furnai.js" defer></script>
 		<script src="js/data/gens.js" defer></script>
 		<script src="js/data/shop.js" defer></script>
-		<script src="js/data/sidebar.js" defer></script>
 		<script src="js/data/upgrade.js" defer></script>
 
 		<script src="js/format.js" defer></script>
@@ -99,6 +94,13 @@ Thank you all! <3
 		<script src="js/img.js" defer></script>
 		<script src="js/canvas.js" defer></script>
 		<script src="js/canvas-util.js" defer></script>
+		<script src="js/interface/interface.js" defer></script>
+		<script src="js/interface/data/board.js" defer></script>
+		<script src="js/interface/data/sidebar/templates/paginator.js" defer></script>
+		<script src="js/interface/data/sidebar/sidebar.js" defer></script>
+		<script src="js/interface/data/sidebar/shop-tab.js" defer></script>
+		<script src="js/interface/data/sidebar/rebirth-tab.js" defer></script>
+		<script src="js/interface/data/sidebar/anal-tab.js" defer></script>
 		<script src="js/control.js" defer></script>
 		<script src="js/loop.js" defer></script>
 
@@ -107,19 +109,12 @@ Thank you all! <3
 		<link rel="stylesheet" href="style.css" />
 	</head>
 	<body>
-		<div id="text">
+		<div style="display: none"><div id="text">
 			<a href="https://yhvr.me/ego" target="_blank">discord</a><br />
 			<a href="https://guilded.gg/yhvr" target="_blank">guilded</a><br />
 			<a href="https://gitlab.com/yhvr/pipegame" target="_blank">source code</a><br />
 			<strong>i've lost interest in this. it's unlikely i will update this any more.</strong><br>
 			sorry!<br><br>
-			LMB to place/pickup/swap<br />
-			ShiftLMB to place multiple/copy block<br />
-			[shift] R or scroll to rotate held/placed block<br />
-			D or RMB to delete held/placed block<br />
-			drag RMB to delete multiple<br />
-			A to toggle chunk analysis mode<br />
-			P to pause<br />
 			update analysis live: <input type="checkbox" oninput="analReactive = this.value === 'on'"/><br>
 			shift to see item tooltips<br />
 			accumulated <span id="fastTime"></span>s fast time<br /><br />
@@ -136,7 +131,7 @@ Thank you all! <3
 			</div>
 		</div>
 
-		<br />
+		<br /></div>
 
 		<canvas id="canvas" width="840" height="660"></canvas>
 	</body>

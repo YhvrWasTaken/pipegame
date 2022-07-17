@@ -31,8 +31,16 @@ let imgs = [
 	"rebshop",
 	"decor-open",
 	"decor",
-	"infotab-open",
-	"infotab",
+	"info-open",
+	"info",
+
+	"settings",
+	"discord-icon",
+	"guilded-icon",
+	"github-icon",
+	"continue",
+	"pause",
+	"ctrl",
 
 	"yes-button",
 	"no-button",
