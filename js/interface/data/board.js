@@ -31,18 +31,23 @@ const Board = Interface.add({
 		if (analyzing && openAnalysis && chunks.includes(openAnalysis)) {
 			drawChunk(openAnalysis, true);
 		}
+
+		// All the particles on the board
+		particles.forEach(p => {
+			ctx.globalAlpha = Math.max(p.a, 0);
+			drawBlock(p.img, p.x, p.y, p.r, p.s);
+		});
 	},
 	onMousedown(x, y, e) {
 		x = floor(x);
 		y = floor(y);
-		console.log("deez");
 		if (analyzing) {
 			checkAnalysis();
 			return;
 		}
 
 		if (e.button === 2) {
-			if (placing.is("Nothing")) control.multibreak = true;
+			if (placing.is("nothing")) control.multibreak = true;
 			else if (!multibreakTimeout) multibreakTimeout = setTimeout(() => control.multibreak = true, 300);
 			deleteBlock();
 			return;

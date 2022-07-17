@@ -114,10 +114,3 @@ function tickParticles(mult) {
 	});
 	particles = newParticles;
 }
-
-function drawParticles() {
-	particles.forEach(p => {
-		ctx.globalAlpha = Math.max(p.a, 0);
-		drawBlock(p.img, p.x, p.y, p.r, p.s);
-	});
-}

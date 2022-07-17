@@ -89,7 +89,7 @@ function draw(diff) {
 		drawCursor(diff);
 
 		tickParticles(diff);
-		drawParticles(diff);
+		// drawParticles(diff);
 
 		if (tooltip) drawHoverQuery();
 	}
@@ -207,7 +207,7 @@ function tickSmooth() {
 function drawHoverQuery() {
 	if (!Board.hasCursor()) return;
 	const block = world[boardX][boardY];
-	if (block.data !== 0) {
+	if (format(block.data) !== "0.000") {
 		drawTooltip(
 			format(block.data),
 			visCellX * 60 - 5,
