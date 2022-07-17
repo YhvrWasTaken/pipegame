@@ -145,8 +145,8 @@ function deleteBlock() {
 		id,
 		1000,
 		{
-			x: cellX * 60,
-			y: cellY * 60,
+			x: boardX * 60,
+			y: boardY * 60,
 			r: rot,
 			s: held ? 1.15 : 1,
 			a: held ? 0.5 : 1,

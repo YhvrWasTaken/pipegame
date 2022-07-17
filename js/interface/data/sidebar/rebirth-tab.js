@@ -34,6 +34,7 @@ const RebirthTab = Interface.add({
 	bottom: 3,
 	width: 3,
 	height: 6,
+	zIndex: 2,
 	draw() {
 		switch (rebirthSubMenu) {
 			case "info":
@@ -62,6 +63,7 @@ const RebirthTab = Interface.add({
 				else if (this.rebirth.deny.hasCursor(x, y)) rebirthSubMenu = "info";
 				break;
 			case "rebshop":
+				console.log(this.shop.container.hasCursor(x, y))
 				if (this.shop.container.hasCursor(x, y)) {
 					let item = rebirthShopItems[rebirthShopPage][Math.floor(y) - this.shop.container.top];
 					if (player.money.gte(item[1]) && placing.is("nothing")) {
@@ -94,11 +96,11 @@ RebirthTab.rebirth = {
 };
 
 RebirthTab.shop = {
-	container: RebirthTab.subcomponent({ top: 0, bottom: 0, width: 0, height: 3 })
+	container: RebirthTab.subcomponent({ left: 0, bottom: 0, width: 3, height: 3 })
 };
 
 RebirthTab.decor = {
-	container: RebirthTab.subcomponent({ top: 0, bottom: 0, width: 0, height: 3 })
+	container: RebirthTab.subcomponent({ left: 0, bottom: 0, width: 3, height: 3 })
 };
 
 const RebirthTabPaginator = Interface.add(extend(Paginator, {
@@ -113,7 +115,7 @@ const RebirthTabPaginator = Interface.add(extend(Paginator, {
 		else rebirthDecorPage += x;
 	},
 	maxPage() {
-		return rebirthSubMenu === "rebshop" ? rebirthShopItems.length : decor.length;
+		return player.rebirth - 1;
 	},
 	get isVisible() {
 		return sidebarMenu === "rebirth" && (rebirthSubMenu === "rebshop" || rebirthSubMenu === "decor");
@@ -171,7 +173,11 @@ function drawRebirthConfirmation() {
 }
 
 function drawRebirthInfo() {
-	drawImage("rebirth-banner", 0, 0);
+	drawImage(
+		"rebirth-banner",
+		0,
+		0
+	);
 	drawText("Req:", 4, 80, {
 		color: "white",
 		align: "left",
