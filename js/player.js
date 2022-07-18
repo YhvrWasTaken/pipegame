@@ -11,7 +11,7 @@ let player = {
 	options: {
 		dark: false,
 		liveAnal: false,
-		mobileControls: false
+		mobileControls: true
 	}
 };
 

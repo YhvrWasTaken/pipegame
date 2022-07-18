@@ -16,6 +16,9 @@ const MobileControls = Interface.add({
         this.rotateCw.tryCursorEvent("mousedown", x, y);
         this.rotateCcw.tryCursorEvent("mousedown", x, y);
         this.analyze.tryCursorEvent("mousedown", x, y);
+    },
+    get isVisible() {
+        return player.options.mobileControls;
     }
 });
 
