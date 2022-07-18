@@ -5,11 +5,14 @@ const RebirthTabButtons = Interface.add({
 	height: 1,
 	zIndex: 2,
 	draw() {
-		for (const tab in this.tabs)
+		for (const tab in this.tabs) {
+			if (!this.tabs[tab].config.requirement()) continue;
 			drawImage(`${tab}${rebirthSubMenu === tab ? "-open" : ""}`, this.tabs[tab].left * 60, this.tabs[tab].top * 60);
+		}
 	},
 	onMousedown(x, y) {
 		for (const tab in this.tabs) {
+			if (!this.tabs[tab].config.requirement()) continue;
 			if (this.tabs[tab].hasCursor(x, y)) rebirthSubMenu = tab;
 		}
 	},
@@ -19,13 +22,16 @@ const RebirthTabButtons = Interface.add({
 });
 RebirthTabButtons.tabs = {
 	info: RebirthTabButtons.subcomponent({
-		top: 0, left: 0
+		top: 0, left: 0,
+		requirement: () => true
 	}),
 	rebshop: RebirthTabButtons.subcomponent({
-		top: 0, left: 1
+		top: 0, left: 1,
+		requirement: () => player.rebirth >= 1
 	}),
 	decor: RebirthTabButtons.subcomponent({
-		top: 0, left: 2
+		top: 0, left: 2,
+		requirement: () => player.rebirth >= 1
 	})
 };
 
