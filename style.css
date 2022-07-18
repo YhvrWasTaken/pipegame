@@ -1,8 +1,12 @@
+body {
+	overflow: hidden;
+	background-color: #666;
+}
+
 canvas {
 	position: absolute;
-	top: 50vh;
-	left: 50vw;
-	transform: translate(-50%, -50%);
+	top: 0;
+	left: 0;
 	transition: 10s filter;
 }
 
@@ -12,11 +16,6 @@ a {
 
 a:visited {
 	color: #f8f;
-}
-
-* {
-	background-color: #111;
-	color: #eee;
 }
 
 #mobile {
