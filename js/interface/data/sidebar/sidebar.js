@@ -33,7 +33,7 @@ const SidebarResources = {
 				font: "20px monospace",
 			});
 			drawImage("money", 0, 0);
-
+			/*
 			if (!this.hasCursor() || SettingsTab.isVisible) return;
 			ctx.textAlign = "start";
 			ctx.font = "12px sans-serif";
@@ -46,7 +46,15 @@ const SidebarResources = {
 				"right",
 				160,
 				lines
-			);
+			);*/
+		},
+		switchToTop() {
+			SidebarResources.money.top = 0;
+			SidebarResources.money.left = 0;
+		},
+		switchToSidebar() {
+			SidebarResources.money.top = 1;
+			SidebarResources.money.right = 0;
 		}
 	}),
 	maxGensAndSquares: Interface.add({
@@ -56,19 +64,19 @@ const SidebarResources = {
 		height: 1,
 		zIndex: 2,
 		draw() {
-			drawText(`${currentGens}/${player.maxGens}`, 40, 28, {
+			drawText(`${currentGens}/${player.maxGens}`, 40, 25, {
 				max: 120,
 				color: "#fff",
 				font: "25px monospace",
 			});
-			drawText(`${currSquares}/${player.maxGens * 5}`, 70, 55, {
+			drawText(`${currSquares}/${player.maxGens * 5}`, 40, 55, {
 				color: "inherit",
 				font: "inherit",
 			});
 
-			drawImage("max-gens", -10, -10, 0, 0.7);
-			drawRect(40, 37, 20, 20, "#000");
-
+			drawImage("max-gens", -10, -12, 0, 0.65);
+			drawRect(10, 37, 20, 20, player.options.dark ? "#aaa" : "#000");
+			/*
 			if (!this.hasCursor() || SettingsTab.isVisible) return;
 			ctx.textAlign = "start";
 			ctx.font = "12px sans-serif";
@@ -91,7 +99,15 @@ const SidebarResources = {
 				"right",
 				160,
 				lines
-			);
+			);*/
+		},
+		switchToTop() {
+			SidebarResources.maxGensAndSquares.top = 0;
+			SidebarResources.maxGensAndSquares.left = 3;
+		},
+		switchToSidebar() {
+			SidebarResources.maxGensAndSquares.top = 2;
+			SidebarResources.maxGensAndSquares.right = 0;
 		}
 	}),
 	shards: Interface.add({
@@ -108,7 +124,7 @@ const SidebarResources = {
 				font: "30px monospace",
 			});
 			drawImage("shards", 0, 0);
-
+			/*
 			if (!this.hasCursor() || SettingsTab.isVisible) return;
 			const tt = "The number of Shards you have.";
 
@@ -122,7 +138,15 @@ const SidebarResources = {
 				"right",
 				160,
 				lines
-			);
+			);*/
+		},
+		switchToTop() {
+			SidebarResources.shards.top = 0;
+			SidebarResources.shards.left = 5;
+		},
+		switchToSidebar() {
+			SidebarResources.shards.top = 3;
+			SidebarResources.shards.right = 0;
 		}
 	})
 };

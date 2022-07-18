@@ -238,7 +238,7 @@ function drawHoverQuery() {
 let blockWidth = 60;
 function resizeCanvas() {
 	const w = window.innerWidth, h = window.innerHeight;
-	blockWidth = Math.min(Math.max(Math.round(Math.min(w * 1.8, h) / 14), 40), 80);
+	blockWidth = Math.min(Math.max(Math.round(Math.min(w, h * 1.8) / 22), 40), 80);
 	
 	canvas.width = Math.roundTo(w, blockWidth);
 	canvas.height = Math.roundTo(h, blockWidth);
@@ -247,6 +247,16 @@ function resizeCanvas() {
 
 	Board.left = Interface.width < 14 ? 0 : Math.floor((Interface.width - 14) / 2);
 	Board.bottom = Interface.height < 12 ? 0 : Math.floor((Interface.height - 12) / 2);
+
+	if (canvas.height / blockWidth <= 11) {
+		SidebarResources.money.config.switchToTop();
+		SidebarResources.maxGensAndSquares.config.switchToTop();
+		SidebarResources.shards.config.switchToTop();
+	} else {
+		SidebarResources.money.config.switchToSidebar();
+		SidebarResources.maxGensAndSquares.config.switchToSidebar();
+		SidebarResources.shards.config.switchToSidebar();
+	}
 }
 
 window.addEventListener("load", () => resizeCanvas());
