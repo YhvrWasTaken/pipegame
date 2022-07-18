@@ -23,6 +23,8 @@ let mx = 0,
 	my = 0,
 	cellX = 0,
 	cellY = 0,
+	cellXSmall = 0,
+	cellYSmall = 0,
 	visCellX = 0,
 	visCellY = 0,
 	cursorRot = 0,
@@ -38,8 +40,10 @@ let mx = 0,
 canvas.addEventListener("mousemove", e => {
 	mx = Math.max(e.clientX - canvas.x + window.scrollX, 0);
 	my = Math.max(e.clientY - canvas.y + window.scrollY, 0);
-	cellX = floor(mx / 60);
-	cellY = floor(my / 60);
+	cellXSmall = mx / blockWidth;
+	cellYSmall = my / blockWidth;
+	cellX = floor(cellXSmall);
+	cellY = floor(cellYSmall);
 	cursorVisible = true;
 
 	if (isLoading) return;
@@ -50,8 +54,10 @@ canvas.addEventListener("mouseenter", e => {
 	cursorVisible = true;
 	mx = Math.max(e.clientX - canvas.x, 0);
 	my = Math.max(e.clientY - canvas.y, 0);
-	cellX = floor(mx / 60);
-	cellY = floor(my / 60);
+	cellXSmall = mx / blockWidth;
+	cellYSmall = my / blockWidth;
+	cellX = floor(mx / blockWidth);
+	cellY = floor(my / blockWidth);
 	visCellX = cellX;
 	visCellY = cellY;
 
@@ -67,7 +73,7 @@ function draw(diff) {
 	ctx.resetTransform();
 	ctx.globalAlpha = 1;
 	ctx.textAlign = "start";
-	ctx.fillStyle = player.dark ? "#222" : "#888";
+	ctx.fillStyle = player.options.dark ? "#222" : "#888";
 	ctx.fillRect(0, 0, canvas.width, canvas.height);
 
 	// Tick smoothing...
@@ -84,14 +90,17 @@ function draw(diff) {
 		drawLoading();
 	} else {
 		Interface.drawAll();
-		CanvasAnimator.update();
+		ctx.scale(blockWidth / 60, blockWidth / 60);
+		if (!SettingsTab.isVisible) {
+			CanvasAnimator.update();
+			tickParticles(diff);
+			if (tooltip) drawHoverQuery();
+		}
 
 		drawCursor(diff);
 
-		tickParticles(diff);
 		// drawParticles(diff);
 
-		if (tooltip) drawHoverQuery();
 	}
 }
 
@@ -140,14 +149,11 @@ function drawChunk(chunk, isAnal = false) {
 }
 
 function drawCursor() {
-	cellX = floor(mx / 60);
-	cellY = floor(my / 60);
-
 	if (control.multibreak || control.multiplace) cursorScale = 1.25;
 	else cursorScale = 1;
 
 	if (analyzing) {
-		drawImage("analyze", mx - 20, my - 20, 0, 1 / 3);
+		drawImage("analyze", cellXSmall * 60 - 20, cellYSmall * 60 - 20, 0, 1 / 3);
 	} else {
 		if (placing.isnt("nothing")) {
 			ctx.globalAlpha = 0.5;
@@ -193,6 +199,8 @@ function drawLoading() {
 }
 
 function tickSmooth() {
+	if (isNaN(visCellX)) visCellX = cellX;
+	if (isNaN(visCellY)) visCellY = cellY;
 	// Make the stuff ***S M O O T H***
 	visCellX = (visCellX + cellX * 0.5) / 1.5;
 	visCellY = (visCellY + cellY * 0.5) / 1.5;
@@ -219,7 +227,7 @@ function drawHoverQuery() {
 	if (shopTooltips[block.id]) {
 		drawTooltip(
 			shopTooltips[block.id],
-			visCellX * 60 + 65,
+			(visCellX + 1) * 60 + 5,
 			visCellY * 60 + 16,
 			"left",
 			180
@@ -227,17 +235,20 @@ function drawHoverQuery() {
 	}
 }
 
+let blockWidth = 60;
 function resizeCanvas() {
-	canvas.width = Math.roundTo(window.innerWidth, 60);
-	canvas.height = Math.roundTo(window.innerHeight, 60);
+	const w = window.innerWidth, h = window.innerHeight;
+	blockWidth = Math.min(Math.max(Math.round(Math.min(w * 1.8, h) / 14), 40), 80);
+	
+	canvas.width = Math.roundTo(w, blockWidth);
+	canvas.height = Math.roundTo(h, blockWidth);
 	canvas.x = canvas.getBoundingClientRect().x;
 	canvas.y = canvas.getBoundingClientRect().y;
-}
 
-resizeCanvas();
-
-window.addEventListener("resize", () => {
-	resizeCanvas();
 	Board.left = Interface.width < 14 ? 0 : Math.floor((Interface.width - 14) / 2);
 	Board.bottom = Interface.height < 12 ? 0 : Math.floor((Interface.height - 12) / 2);
-});
+}
+
+window.addEventListener("load", () => resizeCanvas());
+
+window.addEventListener("resize", () => resizeCanvas());

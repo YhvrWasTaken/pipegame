@@ -4,7 +4,6 @@
 
 let openAnalysis = null;
 let analPage = 0;
-let analReactive = false;
 
 function checkAnalysis() {
 	let cx = boardXUnrounded;
@@ -27,7 +26,7 @@ function checkAnalysis() {
 			cy > (chunk.y + chunk.offset[1]) &&
 			cy < (chunk.y + chunk.offset[1]) + THIRD
 		) {
-			if (analReactive) openAnalysis = chunk;
+			if (player.options.liveAnal) openAnalysis = chunk;
 			else openAnalysis = structuredClone(chunk);
 			// Shenaningans with sC polyfill
 			if (typeof openAnalysis.value === "string")

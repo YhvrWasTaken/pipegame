@@ -1,6 +1,6 @@
-const ALIGN = { LEFT: 1, RIGHT: 2, TOP: 3, BOTTOM: 4 };
+const ALIGN = { LEFT: 1, RIGHT: 2, TOP: 3, BOTTOM: 4, CENTRE: 5 };
 
-class Interface {
+class ComponentBasic {
 	constructor(config) {
 		// Lazy way out
 		this.config = config;
@@ -11,12 +11,16 @@ class Interface {
 			config.y = config.bottom;
 			config.verticalAlign = ALIGN.BOTTOM;
 		}
-		if ("left" in config) {
-			config.x = config.left;
-			config.horizontalAlign = ALIGN.LEFT;
-		} else if ("right" in config) {
-			config.x = config.right;
-			config.horizontalAlign = ALIGN.RIGHT;
+		if (config.horizontalAlign === ALIGN.CENTRE) {
+			config.x = "left" in config ? -config.left : config.right;
+		} else {
+			if ("left" in config) {
+				config.x = config.left;
+				config.horizontalAlign = ALIGN.LEFT;
+			} else if ("right" in config) {
+				config.x = config.right;
+				config.horizontalAlign = ALIGN.RIGHT;
+			}
 		}
 	}
 
@@ -37,7 +41,7 @@ class Interface {
 	}
 
 	get width() {
-		return this.config.width <= 0 ? Interface.width + this.config.width : this.config.width;
+		return this.config.width <= 0 ? this.parentWidth + this.config.width : this.config.width;
 	}
 
 	set width(v) {
@@ -45,7 +49,7 @@ class Interface {
 	}
 
 	get height() {
-		return this.config.height <= 0 ? Interface.height + this.config.height : this.config.height;
+		return this.config.height <= 0 ? this.parentHeight + this.config.height : this.config.height;
 	}
 
 	set height(v) {
@@ -69,7 +73,7 @@ class Interface {
 	}
 
 	get top() {
-		return this.verticalAlign === ALIGN.TOP ? this.y : Interface.height - this.y - this.height;
+		return this.verticalAlign === ALIGN.TOP ? this.y : this.parentHeight - this.y - this.height;
 	}
 
 	set top(v) {
@@ -78,7 +82,7 @@ class Interface {
 	}
 
 	get bottom() {
-		return this.verticalAlign === ALIGN.BOTTOM ? this.y : Interface.height - this.y - this.height;
+		return this.verticalAlign === ALIGN.BOTTOM ? this.y : this.parentHeight - this.y - this.height;
 	}
 
 	set bottom(v) {
@@ -87,21 +91,39 @@ class Interface {
 	}
 
 	get left() {
-		return this.horizontalAlign === ALIGN.LEFT ? this.x : Interface.width - this.x - this.width;
+		if (this.horizontalAlign === ALIGN.CENTRE)
+			return this.x > 0 ? ceil(this.parentWidth / 2 - 1) + this.x
+				: floor(this.parentWidth / 2 + 1) + this.x - this.width;
+		return this.horizontalAlign === ALIGN.LEFT ? this.x : this.parentWidth - this.x - this.width;
 	}
 
 	set left(v) {
+		if (this.horizontalAlign === ALIGN.CENTRE) {
+			this.x = -v;
+			return;
+		}
 		this.x = v;
 		this.horizontalAlign = ALIGN.LEFT;
 	}
 
 	get right() {
-		return this.horizontalAlign === ALIGN.RIGHT ? this.x : Interface.width - this.x - this.width;
+		if (this.horizontalAlign === ALIGN.CENTRE) this.parentWidth - this.left - this.width;
+		return this.horizontalAlign === ALIGN.RIGHT ? this.x : this.parentWidth - this.x - this.width;
 	}
 
 	set right(v) {
 		this.x = v;
+		if (this.horizontalAlign === ALIGN.CENTRE) return;
 		this.horizontalAlign = ALIGN.RIGHT;
+	}
+}
+class Interface extends ComponentBasic {
+	get parentWidth() {
+		return Interface.width;
+	}
+	
+	get parentHeight() {
+		return Interface.height;
 	}
 
 	get isVisible() {
@@ -110,6 +132,14 @@ class Interface {
 
 	set isVisible(v) {
 		this.config.isVisible = v;
+	}
+
+	get hasCursorEvents() {
+		return this.config.hasCursorEvents ?? true;
+	}
+
+	set hasCursorEvents(v) {
+		this.config.hasCursorEvents = v;
 	}
 
 	get cursorX() {
@@ -171,7 +201,7 @@ class Interface {
 
 	draw() {
 		if (!this.isVisible) return;
-		ctx.setTransform(1, 0, 0, 1, this.left * 60, this.top * 60);
+		ctx.setTransform(blockWidth / 60, 0, 0, blockWidth / 60, this.left * blockWidth, this.top * blockWidth);
 		this.config.draw.bind(this)();
 		ctx.resetTransform();
 	}
@@ -195,11 +225,11 @@ class Interface {
 	}
 
 	static get width() {
-		return canvas.width / 60;
+		return canvas.width / blockWidth;
 	}
 
 	static get height() {
-		return canvas.height / 60;
+		return canvas.height / blockWidth;
 	}
 
 	static byId(id) {
@@ -221,8 +251,8 @@ class Interface {
 		for (const layer of layers) {
 			const reverseLayer = [...layer].reverse();
 			for (const item of reverseLayer) {
-				if (item.hasCursor()) {
-					const relX = event.offsetX / 60 - item.left, relY = event.offsetY / 60 - item.top;
+				if (item.hasCursorEvents && item.hasCursor()) {
+					const relX = event.offsetX / blockWidth - item.left, relY = event.offsetY / blockWidth - item.top;
 					item[`on${capitalize(eventName)}`](relX, relY, event);
 					return;
 				}
@@ -231,114 +261,49 @@ class Interface {
 	}
 }
 
-class Subcomponent {
+class Subcomponent extends ComponentBasic {
 	constructor(parent, config) {
+		super(config);
 		this.parent = parent;
-		this.config = config;
-		this.config.width = this.config.width ?? 1;
-		this.config.height = this.config.height ?? 1;
-		if ("top" in config) {
-			config.y = config.top;
-			config.verticalAlign = ALIGN.TOP;
-		} else if ("bottom" in config) {
-			config.y = config.bottom;
-			config.verticalAlign = ALIGN.BOTTOM;
-		}
-		if ("left" in config) {
-			config.x = config.left;
-			config.horizontalAlign = ALIGN.LEFT;
-		} else if ("right" in config) {
-			config.x = config.right;
-			config.horizontalAlign = ALIGN.RIGHT;
-		}
+		this.width = this.width ?? 1;
+		this.height = this.height ?? 1;
 	}
 
-	get horizontalAlign() {
-		return this.config.horizontalAlign || ALIGN.LEFT;
+	get parentWidth() {
+		return this.parent.width;
 	}
 
-	set horizontalAlign(v) {
-		this.config.horizontalAlign = v;
+	get parentHeight() {
+		return this.parent.height;
 	}
 
-	get verticalAlign() {
-		return this.config.verticalAlign || ALIGN.TOP;
+	get isVisible() {
+		return this.config.isVisible ?? true;
 	}
 
-	set verticalAlign(v) {
-		this.config.verticalAlign = v;
-	}
-
-	get width() {
-		return this.config.width <= 0 ? this.parent.width - this.config.width : this.config.width;
-	}
-
-	set width(v) {
-		this.config.width = v;
-	}
-
-	get height() {
-		return this.config.height <= 0 ? this.parent.height - this.config.height : this.config.height;
-	}
-
-	set height(v) {
-		this.config.height = v;
-	}
-
-	get x() {
-		return this.config.x;
-	}
-
-	set x(v) {
-		this.config.x = v;
-	}
-
-	get y() {
-		return this.config.y;
-	}
-
-	set y(v) {
-		this.config.y = v;
-	}
-
-	get top() {
-		return this.verticalAlign === ALIGN.TOP ? this.y : this.parent.height - this.y - this.height;
-	}
-
-	set top(v) {
-		this.y = v;
-		this.verticalAlign = ALIGN.TOP;
-	}
-
-	get bottom() {
-		return this.verticalAlign === ALIGN.BOTTOM ? this.y : this.parent.height - this.y - this.height;
-	}
-
-	set bottom(v) {
-		this.y = v;
-		this.verticalAlign = ALIGN.BOTTOM;
-	}
-
-	get left() {
-		return this.horizontalAlign === ALIGN.LEFT ? this.x : this.parent.width - this.x - this.width;
-	}
-
-	set left(v) {
-		this.x = v;
-		this.horizontalAlign = ALIGN.LEFT;
-	}
-
-	get right() {
-		return this.horizontalAlign === ALIGN.RIGHT ? this.x : this.parent.width - this.x - this.width;
-	}
-
-	set right(v) {
-		this.x = v;
-		this.horizontalAlign = ALIGN.RIGHT;
+	set isVisible(v) {
+		this.config.isVisible = v;
 	}
 
 	hasCursor(x, y) {
+		if (x === undefined && y === undefined) {
+			return (cellX >= this.left + this.parent.left && cellX < this.left + this.parent.left + this.width) &&
+				(cellY >= this.top + this.parent.top && cellY < this.top + this.parent.top + this.height);
+		}
 		return (x >= this.left && x < this.left + this.width) &&
 			(y >= this.top && y < this.top + this.height);
+	}
+
+	draw() {
+		if (!this.isVisible) return;
+		ctx.translate(this.left * 60, this.top * 60);
+		this.config.draw.bind(this)();
+		ctx.translate(-this.left * 60, -this.top * 60);
+	}
+
+	tryCursorEvent(type, x, y, e) {
+		if (this.isVisible && this.hasCursor(x, y)) {
+			this.config[`on${capitalize(type)}`].bind(this)(x, y, e);
+		}
 	}
 }

@@ -144,7 +144,7 @@ function drawRebirthShop() {
 
 	const shopTabY = RebirthTab.relativeY(cellY) - 2;
 	if (RebirthTab.hasCursor() && shopTabY >= 0 && shopTabY <= 2) {
-		if (rebirthShopItems[rebirthShopPage] === undefined) return;
+		if (rebirthShopItems[rebirthShopPage] === undefined || SettingsTab.isVisible) return;
 		let text =
 			shopTooltips[rebirthShopItems[rebirthShopPage][shopTabY][0]];
 		if (text === undefined) return;

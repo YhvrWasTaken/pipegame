@@ -15,8 +15,10 @@ let multibreakTimeout = 0;
 canvas.addEventListener("mousedown", e => {
 	mx = Math.max(e.clientX - canvas.x + window.scrollX, 0);
 	my = Math.max(e.clientY - canvas.y + window.scrollY, 0);
-	cellX = floor(mx / 60);
-	cellY = floor(my / 60);
+	cellX = floor(mx / blockWidth);
+	cellY = floor(my / blockWidth);
+	cellXSmall = mx / blockWidth;
+	cellYSmall = my / blockWidth;
 	e.preventDefault();
 
 	if (isLoading) return;
@@ -26,8 +28,8 @@ canvas.addEventListener("mousedown", e => {
 canvas.addEventListener("click", e => {
 	mx = Math.max(e.clientX - canvas.x + window.scrollX, 0);
 	my = Math.max(e.clientY - canvas.y + window.scrollY, 0);
-	cellX = floor(mx / 60);
-	cellY = floor(my / 60);
+	cellX = floor(mx / blockWidth);
+	cellY = floor(my / blockWidth);
 	e.preventDefault();
 
 	if (isLoading) return;

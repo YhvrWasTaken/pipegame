@@ -3,6 +3,7 @@ const AnalTab = Interface.add({
 	bottom: 2,
 	width: 3,
 	height: 7,
+	zIndex: 2,
 	draw() {
 		const type = openAnalysis.data.t;
 		if (type === "tri") {

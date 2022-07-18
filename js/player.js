@@ -8,7 +8,10 @@ let player = {
 	rebirth: 0,
 	shards: D(0),
 	version: 0,
-	dark: false,
+	options: {
+		dark: false,
+		liveAnal: false
+	}
 };
 
 const initialPlayerStart = structuredClone(player);

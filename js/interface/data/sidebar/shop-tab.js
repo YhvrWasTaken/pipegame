@@ -24,7 +24,7 @@ const SidebarShopTab = Interface.add({
 			items = shopItems[sidebarShopPage];
 		}
 	
-		if (this.hasCursor() && this.relativeY(cellY) >= 2) {
+		if (!SettingsTab.isVisible && this.hasCursor() && this.relativeY(cellY) >= 2) {
 			if (shopItems[sidebarShopPage] === undefined) return;
 			let text = shopTooltips[shopItems[sidebarShopPage][this.relativeY(cellY) - 2][0]];
 			if (text === undefined) text = "[No tooltip provided]";

@@ -2,7 +2,7 @@
 
 /* eslint-disable max-len */
 
-const { floor, abs } = Math;
+const { ceil, floor, abs } = Math;
 const id = n => document.getElementById(n);
 const gid = id;
 const D = n => new Decimal(n);

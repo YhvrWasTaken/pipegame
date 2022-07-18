@@ -4,12 +4,12 @@ const Sidebar = Interface.add({
 	bottom: 0,
 	right: 0,
 	width: 3,
-	height: 11,
+	height: -1,
 	zIndex: 1,
 	draw() {
 		const linearGradient = ctx.createLinearGradient(0, 0, 0, this.height * 60);
-		linearGradient.addColorStop(0, player.dark ? "#222" : "#888");
-		linearGradient.addColorStop(1, player.dark ? "#223032" : "#889092");
+		linearGradient.addColorStop(0, player.options.dark ? "#222" : "#888");
+		linearGradient.addColorStop(1, player.options.dark ? "#223032" : "#889092");
 		this.background(linearGradient);
 	}
 });
@@ -34,7 +34,7 @@ const SidebarResources = {
 			});
 			drawImage("money", 0, 0);
 
-			if (!this.hasCursor()) return;
+			if (!this.hasCursor() || SettingsTab.isVisible) return;
 			ctx.textAlign = "start";
 			ctx.font = "12px sans-serif";
 			const tt = "How much money you have.";
@@ -69,7 +69,7 @@ const SidebarResources = {
 			drawImage("max-gens", -10, -10, 0, 0.7);
 			drawRect(40, 37, 20, 20, "#000");
 
-			if (!this.hasCursor()) return;
+			if (!this.hasCursor() || SettingsTab.isVisible) return;
 			ctx.textAlign = "start";
 			ctx.font = "12px sans-serif";
 			let tt;
@@ -109,7 +109,7 @@ const SidebarResources = {
 			});
 			drawImage("shards", 0, 0);
 
-			if (!this.hasCursor()) return;
+			if (!this.hasCursor() || SettingsTab.isVisible) return;
 			const tt = "The number of Shards you have.";
 
 			ctx.textAlign = "start";
