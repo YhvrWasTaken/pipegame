@@ -25,7 +25,7 @@ MobileControls.trash = MobileControls.subcomponent({
     width: 2,
     draw() {
         this.background("#f006");
-        drawImage("trashcan", 0, 0, 0, this.hasCursor() && !SettingsTab.isVisible && placing.isnt("nothing") ? 1.1 : 0.8);
+        drawImage("trashcan", 0, 0, 0, this.hasCursor() && !hasMenuVisible() && placing.isnt("nothing") ? 1.1 : 0.8);
     },
     onMousedown() {
         deleteBlock();
@@ -36,7 +36,7 @@ MobileControls.rotateCw = MobileControls.subcomponent({
     left: 2,
     top: 0,
     draw() {
-        drawImage("r-cw", 0, 0, 0, this.hasCursor() && !SettingsTab.isVisible && placing.isnt("nothing") ? 1.15 : 0.8);
+        drawImage("r-cw", 0, 0, 0, this.hasCursor() && !hasMenuVisible() && placing.isnt("nothing") ? 1.15 : 0.8);
     },
     onMousedown() {
         rotate();
@@ -47,7 +47,7 @@ MobileControls.rotateCcw = MobileControls.subcomponent({
     left: 3,
     top: 0,
     draw() {
-        drawImage("r-ccw", 0, 0, 0, this.hasCursor() && !SettingsTab.isVisible && placing.isnt("nothing") ? 1.15 : 0.8);
+        drawImage("r-ccw", 0, 0, 0, this.hasCursor() && !hasMenuVisible() && placing.isnt("nothing") ? 1.15 : 0.8);
     },
     onMousedown() {
         rotate(true);
@@ -59,7 +59,7 @@ MobileControls.analyze = MobileControls.subcomponent({
     top: 0,
     draw() {
         if (!analyzing) ctx.globalAlpha = 0.5;
-        drawImage("analyze", 0, 0, 0, this.hasCursor() && !SettingsTab.isVisible ? 0.8 : 0.6)
+        drawImage("analyze", 0, 0, 0, this.hasCursor() && !hasMenuVisible() ? 0.8 : 0.6)
         ctx.globalAlpha = 1;
     },
     onMousedown() {

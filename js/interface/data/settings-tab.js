@@ -5,13 +5,11 @@ const SettingsTab = Interface.add({
 	height: 0,
 	zIndex: 3,
 	draw() {
-		ctx.globalAlpha = 0.5;
 		const linearGradient = ctx.createLinearGradient(0, 0, 0, this.height * 60);
-		linearGradient.addColorStop(0, player.options.dark ? "#222c" : "#888c");
-		linearGradient.addColorStop(1, player.options.dark ? "#223032cc" : "#889092cc");
+		linearGradient.addColorStop(0, player.options.dark ? "#222d" : "#888d");
+		linearGradient.addColorStop(1, player.options.dark ? "#223032dd" : "#889092dd");
 		this.background(linearGradient);
-		ctx.globalAlpha = 1;
-		drawImage("logo", Interface.width / 2 * 60 - 90, 60);
+		drawImage("logo", Interface.width / 2 * 60 - 90, 0);
 
 		this.back.draw();
 		for (const setting of Object.values(this.settings)) {
@@ -64,7 +62,7 @@ SettingsTab.settings = (function() {
 	};
 	
 	let settings = {};
-	let top = 4;
+	let top = 3;
 	function newSetting(option, text) {
 		settings[option] = { label: SettingsTab.subcomponent(extend(SettingsLabelTemplate, { top, text })),
 			checkBox: SettingsTab.subcomponent(extend(SettingsCheckboxTemplate, {top, option} )) }

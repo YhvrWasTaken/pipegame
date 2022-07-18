@@ -22,7 +22,8 @@ canvas.addEventListener("mousedown", e => {
 	e.preventDefault();
 
 	if (isLoading) return;
-	Interface.dispatchCursorEvent("mousedown", e);
+	if (placing.isnt("nothing") && e.button === 2) deleteBlock();
+	else Interface.dispatchCursorEvent("mousedown", e);
 });
 
 canvas.addEventListener("click", e => {
