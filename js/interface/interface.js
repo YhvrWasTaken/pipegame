@@ -300,6 +300,10 @@ class Subcomponent extends ComponentBasic {
 		this.config.draw.bind(this)();
 		ctx.translate(-this.left * 60, -this.top * 60);
 	}
+	
+	background(c) {
+		drawRect(0, 0, this.width * 60, this.height * 60, c);
+	}
 
 	tryCursorEvent(type, x, y, e) {
 		if (this.isVisible && this.hasCursor(x, y)) {

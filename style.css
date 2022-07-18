@@ -1,12 +1,13 @@
 body {
 	overflow: hidden;
-	background-color: #666;
+	background-color: #000;
 }
 
 canvas {
 	position: absolute;
 	top: 0;
-	left: 0;
+	left: 50%;
+	transform: translateX(-50%);
 	transition: 10s filter;
 }
 

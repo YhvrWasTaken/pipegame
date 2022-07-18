@@ -10,7 +10,8 @@ let player = {
 	version: 0,
 	options: {
 		dark: false,
-		liveAnal: false
+		liveAnal: false,
+		mobileControls: false
 	}
 };
 

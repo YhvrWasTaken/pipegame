@@ -90,10 +90,10 @@ function draw(diff) {
 		drawLoading();
 	} else {
 		Interface.drawAll();
+		tickParticles(diff);
 		ctx.scale(blockWidth / 60, blockWidth / 60);
 		if (!SettingsTab.isVisible) {
 			CanvasAnimator.update();
-			tickParticles(diff);
 			if (tooltip) drawHoverQuery();
 		}
 
@@ -246,7 +246,7 @@ function resizeCanvas() {
 	canvas.y = canvas.getBoundingClientRect().y;
 
 	Board.left = Interface.width < 14 ? 0 : Math.floor((Interface.width - 14) / 2);
-	Board.bottom = Interface.height < 12 ? 0 : Math.floor((Interface.height - 12) / 2);
+	Board.top = Interface.height < 12 ? 1 : Math.floor((Interface.height - 12) / 2) + 1;
 
 	if (canvas.height / blockWidth <= 11) {
 		SidebarResources.money.config.switchToTop();

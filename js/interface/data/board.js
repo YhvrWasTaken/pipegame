@@ -10,7 +10,7 @@ Interface.add({
 	}
 });
 const Board = Interface.add({
-	bottom: 0,
+	top: 1,
 	left: 0,
 	width: 11,
 	height: 11,
@@ -31,12 +31,6 @@ const Board = Interface.add({
 		if (analyzing && openAnalysis && chunks.includes(openAnalysis)) {
 			drawChunk(openAnalysis, true);
 		}
-
-		// All the particles on the board
-		particles.forEach(p => {
-			ctx.globalAlpha = Math.max(p.a, 0);
-			drawBlock(p.img, p.x, p.y, p.r, p.s);
-		});
 	},
 	onMousedown(x, y, e) {
 		x = floor(x);
@@ -114,8 +108,8 @@ const Board = Interface.add({
 	onMousemove(x, y) {
 		boardXUnrounded = x;
 		boardYUnrounded = y;
-		boardX = Math.min(floor(x), 10);
-		boardY = Math.min(floor(y), 10);
+		boardX = Math.max(0, Math.min(floor(x), 10));
+		boardY = Math.max(0, Math.min(floor(y), 10));
 		if (control.multibreak) deleteBlock();
 		let ground = copyBlock(world[boardX][boardY]);
 		if (control.multiplace && ground.is("nothing")) {
@@ -133,3 +127,19 @@ const Board = Interface.add({
 		}
 	}
 });
+
+const BoardParticleDisplay = Interface.add({
+	zIndex: 1,
+	hasCursorEvents: false,
+	draw() {
+		this.top = Board.top;
+		this.left = Board.left;
+		this.width = Board.width;
+		this.height = Board.height;
+
+		particles.forEach(p => {
+			ctx.globalAlpha = Math.max(p.a, 0);
+			drawBlock(p.img, p.x, p.y, p.r, p.s);
+		});
+	}
+})

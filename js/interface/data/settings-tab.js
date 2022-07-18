@@ -72,5 +72,6 @@ SettingsTab.settings = (function() {
 	}
 	newSetting("dark", "Dark Mode:");
 	newSetting("liveAnal", "Live Analysis Update:");
+	newSetting("mobileControls", "Mobile Controls:")
 	return settings;
 })();

@@ -48,6 +48,10 @@ let imgs = [
 	"toggle-true",
 	"toggle-false",
 
+	"r-cw",
+	"r-ccw",
+	"trashcan",
+
 	"conveyor",
 	"conveyor2",
 	"conveyor3",
