@@ -11,7 +11,8 @@ let player = {
 	options: {
 		dark: false,
 		liveAnal: false,
-		mobileControls: false
+		mobileControls: false,
+		zoomLevel: 0
 	}
 };
 

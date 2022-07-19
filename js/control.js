@@ -49,8 +49,14 @@ window.addEventListener("mouseup", e => {
 });
 
 window.addEventListener("keypress", e => {
-	if (e.key === "a") analyzing = !analyzing;
-	if (e.key === "p") paused = !paused;
+	switch (e.key) {
+		case "a":
+			analyzing = !analyzing;
+			break;
+		case "p":
+			paused = !paused;
+			break;
+	}
 
 	if (analyzing) return;
 
@@ -60,15 +66,6 @@ window.addEventListener("keypress", e => {
 	if (e.key === "R") {
 		rotate(true);
 	}
-	// If (e.key === "c") {
-	// placing = Block("conveyor");
-	// }
-	// if (e.key === "1") {
-	// placing = Block("gen1");
-	// }
-	// if (e.key === "f") {
-	// placing = Block("furnace");
-	// }
 	if (e.key === "d") {
 		deleteBlock();
 	}
@@ -76,6 +73,14 @@ window.addEventListener("keypress", e => {
 
 window.addEventListener("keydown", e => {
 	shiftDown = e.shiftKey;
+	switch(e.key) {
+		case "Escape":
+		case "Esc":
+		case "Enter":
+			ControlsTab.isVisible = false;
+			SettingsTab.isVisible = false;
+			break;
+	}
 });
 
 window.addEventListener("keyup", e => {

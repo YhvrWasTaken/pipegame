@@ -17,6 +17,12 @@ const SettingsTab = Interface.add({
 			setting.checkBox.draw();
 		}
 		for (const action of Object.values(this.actions)) action.draw();
+		drawText(`Zoom level: ${zoomLevel().toFixed(2)}`, Interface.width / 2 * 60,
+			this.actions.find(x => x.config.option === "zoom").top * 60 + 35, {
+				font: "20px monospace",
+				color: "white",
+				align: "center"
+			});
 	},
 	onMousedown(x, y) {
 		x = floor(x);
@@ -84,8 +90,8 @@ SettingsTab.actions = (function() {
 			ctx.strokeStyle = "white";
 			ctx.strokeWidth = 4;
 			ctx.fillStyle = "#666";
-			ctx.fillRect(10, 5, this.width * 60 - 20, this.height * 60 - 10);
-			ctx.strokeRect(10, 5, this.width * 60 - 20, this.height * 60 - 10);
+			ctx.fillRect(7, 7, this.width * 60 - 14, this.height * 60 - 14);
+			ctx.strokeRect(7, 7, this.width * 60 - 14, this.height * 60 - 14);
 			drawText(this.config.text, this.width / 2 * 60, 35, {
 				font: "17px monospace",
 				color: "white",
@@ -97,14 +103,10 @@ SettingsTab.actions = (function() {
 	let settings = [];
 	let top = Object.keys(SettingsTab.settings).length + 2;
 	function newSetting(option1, option2) {
-		if (option1) settings.push(SettingsTab.subcomponent(extend(SettingsActionTemplate, Object.assign(option1, {
-			left: 1,
-			top
-		}))));
-		if (option2) settings.push(SettingsTab.subcomponent(extend(SettingsActionTemplate, Object.assign(option2, {
-			right: 1,
-			top
-		}))));
+		if (option1) settings.push(SettingsTab.subcomponent(extend(SettingsActionTemplate, extend({ left: 1, top },
+			option1))));
+		if (option2) settings.push(SettingsTab.subcomponent(extend(SettingsActionTemplate, extend({ right: 1, top },
+			option2))));
 		top++;
 	}
 	newSetting({
@@ -119,6 +121,20 @@ SettingsTab.actions = (function() {
 		onMousedown() {
 			paused = !paused;
 		}
+	});
+	newSetting({
+		text: "-",
+		option: "zoom",
+		left: 3,
+		width: 1,
+		onMousedown() { player.options.zoomLevel--; resizeCanvas(); },
+		get isVisible() { return player.options.zoomLevel > -5; }
+	}, {
+		text: "+",
+		right: 3,
+		width: 1,
+		onMousedown() { player.options.zoomLevel++; resizeCanvas(); },
+		get isVisible() { return player.options.zoomLevel < 5; }
 	});
 	return settings;
 })();
