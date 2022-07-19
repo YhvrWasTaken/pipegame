@@ -236,7 +236,7 @@ function drawHoverQuery() {
 let blockWidth = 60;
 function resizeCanvas() {
 	const w = window.innerWidth, h = window.innerHeight;
-	blockWidth = Math.min(Math.max(Math.round(Math.min(w, h * 1.8) / 23.5), 40), 80);
+	blockWidth = Math.min(Math.max(Math.round(Math.min(w, h * 1.8) / 23.5), 35), 80);
 	document.body.style.setProperty("--block-width", `${blockWidth}px`);
 	
 	canvas.width = Math.roundTo(w, blockWidth);

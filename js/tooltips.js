@@ -53,7 +53,7 @@ function fillWrapText(text, x, y, lineHeight, fitWidth = 160) {
 	return currentLine;
 }
 
-function calcWrapText(text, fitWidth = 160) {
+function calcWrapText(text, fitWidth = 200) {
 	let words = text.split(" ");
 	let currentLine = 0;
 	let idx = 1;

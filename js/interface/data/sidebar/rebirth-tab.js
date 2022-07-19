@@ -154,14 +154,14 @@ function drawRebirthShop() {
 		let text =
 			shopTooltips[rebirthShopItems[rebirthShopPage][shopTabY][0]];
 		if (text === undefined) return;
-		ctx.font = "12px sans-serif";
+		ctx.font = "16px sans-serif";
 		let lines = calcWrapText(text);
 		drawTooltip(
 			text,
 			-10,
 			RebirthTab.relativeY(visCellY) * 60 + 35 - lines * 6,
 			"right",
-			160,
+			200,
 			lines
 		);
 	}
