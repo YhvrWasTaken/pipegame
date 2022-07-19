@@ -236,7 +236,8 @@ function drawHoverQuery() {
 let blockWidth = 60;
 function resizeCanvas() {
 	const w = window.innerWidth, h = window.innerHeight;
-	blockWidth = Math.min(Math.max(Math.round(Math.min(w, h * 1.8) / 23.5), 30), 80);
+	blockWidth = Math.min(Math.max(Math.round(Math.min(w, h * 1.8) / 23.5), 40), 80);
+	document.body.style.setProperty("--block-width", `${blockWidth}px`);
 	
 	canvas.width = Math.roundTo(w, blockWidth);
 	canvas.height = Math.roundTo(h, blockWidth);
@@ -260,3 +261,6 @@ function resizeCanvas() {
 window.addEventListener("load", () => resizeCanvas());
 
 window.addEventListener("resize", () => resizeCanvas());
+
+// Shitty hardcoded solution manages to solve some mobile bug. I won't question it, I guess.
+setInterval(() => resizeCanvas(), 500);

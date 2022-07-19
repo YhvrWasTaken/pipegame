@@ -31,10 +31,8 @@ button {
 
 #mobile-controls {
 	display: flex;
-	width: 350px;
-	justify-content: space-between;
 	position: absolute;
-	bottom: 10px;
+	bottom: 5px;
 	left: 50%;
 	transform: translateX(-50%);
 	z-index: 1;
@@ -46,6 +44,11 @@ button {
 	padding: 0;
 	background: linear-gradient(#aaab 40%, #888b 60%);
 	pointer-events: auto;
+}
+
+.l-mobile-controls--space {
+	width: var(--block-width);
+	height: var(--block-height);
 }
 
 .lore {
