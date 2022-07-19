@@ -1,9 +1,13 @@
 body {
 	overflow: hidden;
-	background-color: #000;
+	background-color: #888;
 }
 
-canvas {
+body.s-base--dark {
+	background-color: #222;
+}
+
+#canvas-container {
 	position: absolute;
 	top: 0;
 	left: 50%;
@@ -11,25 +15,37 @@ canvas {
 	transition: 10s filter;
 }
 
-a {
-	color: #bbf;
+button {
+	background-color: #666;
+	color: #fff;
+	border: 2px solid;
 }
 
-a:visited {
-	color: #f8f;
-}
-
-#mobile {
-	display: none;
-}
-
-#mobile button {
-	width: 75px;
-	height: 75px;
+.s-base--dark button {
+	background-color: #222;
 }
 
 #text {
 	transition: 5s opacity;
+}
+
+#mobile-controls {
+	display: flex;
+	width: 350px;
+	justify-content: space-between;
+	position: absolute;
+	bottom: 10px;
+	left: 50%;
+	transform: translateX(-50%);
+	z-index: 1;
+	user-select: none;
+	pointer-events: none;
+}
+
+#mobile-controls button {
+	padding: 0;
+	background: linear-gradient(#aaab 40%, #888b 60%);
+	pointer-events: auto;
 }
 
 .lore {

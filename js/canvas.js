@@ -50,7 +50,7 @@ canvas.addEventListener("mousemove", e => {
 	Interface.dispatchCursorEvent("mousemove", e);
 });
 
-canvas.addEventListener("mouseenter", e => {
+id("canvas-container").addEventListener("mouseenter", e => {
 	cursorVisible = true;
 	mx = Math.max(e.clientX - canvas.x, 0);
 	my = Math.max(e.clientY - canvas.y, 0);
@@ -60,11 +60,9 @@ canvas.addEventListener("mouseenter", e => {
 	cellY = floor(my / blockWidth);
 	visCellX = cellX;
 	visCellY = cellY;
-
-	if (isLoading) return;
 });
 
-canvas.addEventListener("mouseleave", () => {
+id("canvas-container").addEventListener("mouseleave", () => {
 	cursorVisible = false;
 });
 

@@ -33,6 +33,7 @@ const Board = Interface.add({
 		}
 	},
 	onMousedown(x, y, e) {
+		if (player.options.mobileControls) return;
 		x = floor(x);
 		y = floor(y);
 		if (analyzing) {
@@ -47,63 +48,7 @@ const Board = Interface.add({
 			return;
 		}
 
-		let ground = copyBlock(world[x][y]);
-
-		if (ground.id.startsWith("gen")) {
-			currentGens--;
-		}
-
-		if (placing.id.startsWith("gen")) {
-			if (currentGens >= player.maxGens) {
-				alert(
-					`Your current gen cap is ${player.maxGens}\nI'll make a nicer message for this later`
-				);
-				return;
-			}
-			currentGens++;
-		}
-
-		if (e.shiftKey === true) {
-			control.multiplace = true;
-		}
-
-		let should = true;
-		let shouldPlace = true;
-		let shouldData = true;
-		let consumeOnNextPlace = false;
-
-		if (ground.is("nothing") && e.shiftKey) {
-			let cost = findCost(placing.id);
-
-			if (player.money.gte(cost)) {
-				// . player.money = player.money.sub(cost);
-				consumeOnNextPlace = true;
-				// . moneyParticles(mx / 60 - 11, my / 60, 5);
-
-				should = false;
-				shouldData = false;
-			}
-		} else if (placing.is("nothing") && e.shiftKey) {
-			let cost = findCost(ground.id);
-
-			if (player.money.gte(cost)) {
-				// . player.money = player.money.sub(cost);
-				// . moneyParticles(mx / 60 - 11.5, my / 60, 5);
-				world[x][y] = ground;
-				consumeOnPlace = true;
-				shouldPlace = false;
-				shouldData = false;
-				if (ground.id.startsWith("gen")) currentGens++;
-			}
-		}
-
-		if (shouldPlace && consumeOnPlace) {
-			player.money = player.money.sub(findCost(placing.id));
-			consumeOnPlace = false;
-		}
-		if (shouldPlace) world[x][y] = copyBlock(placing, shouldData);
-		if (should) placing = copyBlock(ground, shouldData);
-		if (consumeOnNextPlace) consumeOnPlace = true;
+		interactWithBoard(x, y, e.shiftKey);
 	},
 	onMousemove(x, y) {
 		boardXUnrounded = x;

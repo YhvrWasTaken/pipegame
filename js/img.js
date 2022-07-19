@@ -37,7 +37,7 @@ let imgs = [
 	"settings",
 	"discord-icon",
 	"guilded-icon",
-	"gitlab-icon",
+	"sourcecode-icon",
 	"continue",
 	"pause",
 	"ctrl",

@@ -1,6 +1,7 @@
 "use strict";
 
 function save() {
+	if (!shouldSave) return;
 	saveWorld();
 	savePlayer();
 
@@ -27,6 +28,15 @@ function load() {
 		loadPlayer();
 		
 		chunks = [];
+	} else {
+		const tryMatchMedia = window.matchMedia && window.matchMedia("(pointer: coarse)").matches;
+		const isTouchScreen = ('ontouchstart' in window || navigator.msMaxTouchPoint || tryMatchMedia);
+		if (isTouchScreen) {
+			setTimeout(() => {
+				if (confirm("We have detected you are using a touchscreen device. Do you wish to turn on mobile controls?"))
+					player.options.mobileControls = true;
+			}, 1000);
+		}
 	}
 }
 
@@ -82,13 +92,13 @@ let shouldSave = true;
 function deleteSave() {
 	shouldSave = false;
 
-	if (confirm("are u sure")) {
-		localStorage.removeItem("pipegame-player-yhvr");
+	if (confirm("Are you sure you want to delete your save?")) {
+		localStorage.removeItem("pipegame-world-yhvr");
 		localStorage.removeItem("pipegame-world-yhvr");
 		window.location.reload();
+	} else {
+		shouldSave = true;
 	}
-
-	shouldSave = true;
 }
 
 load();

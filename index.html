@@ -96,9 +96,9 @@ Thank you all! <3
 		<script src="js/canvas.js" defer></script>
 		<script src="js/canvas-util.js" defer></script>
 		<script src="js/interface/interface.js" defer></script>
-		<script src="js/interface/data/mobile.js" defer></script>
-		<script src="js/interface/data/board.js" defer></script>
 		<script src="js/interface/data/top.js" defer></script>
+		<script src="js/interface/data/bottom.js" defer></script>
+		<script src="js/interface/data/board.js" defer></script>
 		<script src="js/interface/data/sidebar/templates/paginator.js" defer></script>
 		<script src="js/interface/data/sidebar/sidebar.js" defer></script>
 		<script src="js/interface/data/sidebar/shop-tab.js" defer></script>
@@ -115,30 +115,26 @@ Thank you all! <3
 		<link rel="stylesheet" href="style.css" />
 	</head>
 	<body>
-		<div style="display: none"><div id="text">
-			<a href="https://yhvr.me/ego" target="_blank">discord</a><br />
-			<a href="https://guilded.gg/yhvr" target="_blank">guilded</a><br />
-			<a href="https://gitlab.com/yhvr/pipegame" target="_blank">source code</a><br />
-			<strong>i've lost interest in this. it's unlikely i will update this any more.</strong><br>
-			sorry!<br><br>
-			update analysis live: <input type="checkbox" oninput="player.options.liveAnal = this.value === 'on'"/><br>
-			shift to see item tooltips<br />
-			accumulated <span id="fastTime"></span>s fast time<br /><br />
-			<button onclick="gid('mobile').style.display = 'block'">
-				on mobile?
-			</button>
 
-			<div id="mobile">
-				walmart mobile controls<br>
-				<button onclick="rotate()">Rotate</button>
-				<button onclick="deleteBlock()">Delete</button><br />
-				<button onclick="analyzing = !analyzing">Analyze</button>
-				<button onclick="paused = !paused">Pause</button><br />
+		<div id="canvas-container">
+			<canvas id="canvas" width="840" height="660"></canvas>
+			<div id="text">
+				<div id="mobile-controls">
+					<!-- Not so walmart mobile controls -->
+					<button onclick="interactWithBoard(boardX, boardY)">
+						<img src="img/move.png" alt="Move" wdith="50" height="50" id="mobile-interact" />
+					</button>
+					<button onclick="rotate()">
+						<img src="img/r-cw.png" alt="Rotate" wdith="50" height="50" id="mobile-rotate-cw" />
+					</button>
+					<button onclick="rotate(true)">
+						<img src="img/r-ccw.png" alt="Rotate anticlockwise" wdith="50" height="50" id="mobile-rotate-ccw" />
+					</button>
+					<button onclick="deleteBlock()">
+						<img src="img/trashcan.png" alt="Delete" wdith="50" height="50" id="mobile-delete" />
+					</button>
+				</div>
 			</div>
 		</div>
-
-		<br /></div>
-
-		<canvas id="canvas" width="840" height="660"></canvas>
 	</body>
 </html>

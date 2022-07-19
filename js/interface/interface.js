@@ -175,6 +175,7 @@ class Interface extends ComponentBasic {
 	}
 
 	hasCursor(x = cellX, y = cellY) {
+		if (!cursorVisible) return false;
 		return (x >= this.left && x < this.left + this.width) &&
 			(y >= this.top && y < this.top + this.height) && this.isVisible;
 	}
@@ -286,6 +287,7 @@ class Subcomponent extends ComponentBasic {
 	}
 
 	hasCursor(x, y) {
+		if (!cursorVisible) return false;
 		if (x === undefined && y === undefined) {
 			return (cellX >= this.left + this.parent.left && cellX < this.left + this.parent.left + this.width) &&
 				(cellY >= this.top + this.parent.top && cellY < this.top + this.parent.top + this.height);
