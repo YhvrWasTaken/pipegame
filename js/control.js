@@ -75,12 +75,12 @@ window.addEventListener("keypress", e => {
 });
 
 window.addEventListener("keydown", e => {
-	tooltip = e.shiftKey;
+	shiftDown = e.shiftKey;
 });
 
 window.addEventListener("keyup", e => {
-	tooltip = e.shiftKey;
-	if (e.shiftKey === false) control.multiplace = false;
+	shiftDown = e.shiftKey;
+	if (!shiftDown) control.multiplace = false;
 });
 
 window.addEventListener("contextmenu", e => e.preventDefault());

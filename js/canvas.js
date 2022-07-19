@@ -34,7 +34,7 @@ let mx = 0,
 	cursorScale = 1,
 	visCursorScale = 1,
 	analyzing = false,
-	tooltip = false;
+	shiftDown = false;
 
 // TODO why is this here?
 canvas.addEventListener("mousemove", e => {
@@ -92,7 +92,7 @@ function draw(diff) {
 		ctx.scale(blockWidth / 60, blockWidth / 60);
 		if (!hasMenuVisible()) {
 			CanvasAnimator.update();
-			if (tooltip) drawHoverQuery();
+			if (shiftDown || (player.options.mobileControls && mobileShowTooltip)) drawHoverQuery();
 		}
 
 		drawCursor(diff);
@@ -210,9 +210,11 @@ function tickSmooth() {
 	visCursorScale = (visCursorScale + cursorScale * 0.3) / 1.3;
 }
 
+let mobileShowTooltip;
 function drawHoverQuery() {
 	if (!Board.hasCursor()) return;
 	const block = world[boardX][boardY];
+	ctx.font = "15px sans-serif";
 	if (format(block.data) !== "0.000") {
 		drawTooltip(
 			format(block.data),

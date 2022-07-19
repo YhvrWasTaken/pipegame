@@ -28,14 +28,14 @@ const SidebarShopTab = Interface.add({
 			if (shopItems[sidebarShopPage] === undefined) return;
 			let text = shopTooltips[shopItems[sidebarShopPage][this.relativeY(cellY) - 2][0]];
 			if (text === undefined) text = "[No tooltip provided]";
-			ctx.font = "16px sans-serif";
-			let lines = calcWrapText(text);
+			ctx.font = "15px sans-serif";
+			let lines = calcWrapText(text, 220);
 			drawTooltip(
 				text,
 				-10,
 				this.relativeY(visCellY) * 60 + 35 - lines * 6,
 				"right",
-				200,
+				220,
 				lines
 			);
 		}
