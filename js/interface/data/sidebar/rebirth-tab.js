@@ -101,11 +101,11 @@ RebirthTab.rebirth = {
 };
 
 RebirthTab.shop = {
-	container: RebirthTab.subcomponent({ left: 0, bottom: 0, width: 3, height: 3 })
+	container: RebirthTab.subcomponent({ left: 0, top: 0, width: 3, height: 3 })
 };
 
 RebirthTab.decor = {
-	container: RebirthTab.subcomponent({ left: 0, bottom: 0, width: 3, height: 3 })
+	container: RebirthTab.subcomponent({ left: 0, top: 0, width: 3, height: 3 })
 };
 
 const RebirthTabPaginator = Interface.add(extend(Paginator, {
@@ -130,7 +130,7 @@ const RebirthTabPaginator = Interface.add(extend(Paginator, {
 function drawRebirthDecor() {
 	decor[rebirthDecorPage].forEach((row, y) => {
 		row.forEach((item, x) => {
-			drawImage(item, x * 60, 180 + y * 60);
+			drawImage(item, x * 60, y * 60);
 		});
 	});
 }
@@ -138,21 +138,20 @@ function drawRebirthDecor() {
 function drawRebirthShop() {
 	let items = rebirthShopItems[rebirthShopPage];
 	items.forEach((item, i) => {
-		drawBlock(item[0], 0, i * 60 + 180, 0, 0.75);
+		drawBlock(item[0], 0, i * 60, 0, 0.75);
 		if (item[1] !== Infinity)
-			drawText(format(item[1]), 80, i * 60 + 217.5, {
+			drawText(format(item[1]), 80, i * 60 + 37.5, {
 				color: "#88ff88",
 				font: "25px monospace",
 			});
 		if (item[0] !== "nothing")
-			drawImage("money", 40, i * 60 + 180, 0, 0.5);
+			drawImage("money", 40, i * 60, 0, 0.5);
 	});
 
-	const shopTabY = RebirthTab.relativeY(cellY) - 2;
+	const shopTabY = RebirthTab.relativeY(cellY);
 	if (RebirthTab.hasCursor() && shopTabY >= 0 && shopTabY <= 2) {
 		if (rebirthShopItems[rebirthShopPage] === undefined || SettingsTab.isVisible) return;
-		let text =
-			shopTooltips[rebirthShopItems[rebirthShopPage][shopTabY][0]];
+		let text = shopTooltips[rebirthShopItems[rebirthShopPage][shopTabY][0]];
 		if (text === undefined) return;
 		ctx.font = "15px sans-serif";
 		let lines = calcWrapText(text, 220);
