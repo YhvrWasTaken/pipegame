@@ -286,6 +286,14 @@ class Subcomponent extends ComponentBasic {
 		this.config.isVisible = v;
 	}
 
+	relativeX(x) {
+		return this.parent.relativeX(x) - this.left;
+	}
+
+	relativeY(y) {
+		return this.parent.relativeY(y) - this.top;
+	}
+
 	hasCursor(x, y) {
 		if (!cursorVisible) return false;
 		if (x === undefined && y === undefined) {

@@ -1,6 +1,7 @@
 "use strict";
 
 let consumeOnPlace = false;
+let shopSubMenu = "inv";
 
 function moneyParticles(x, y, amt = 10, img = "money") {
 	addParticles(

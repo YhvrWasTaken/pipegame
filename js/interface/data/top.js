@@ -10,6 +10,7 @@ const TopBar = Interface.add({
 	zIndex: 2,
 	draw() {
 		this.background(player.options.dark ? "#222" : "#888");
+		this.fullScreen.draw();
 		this.discord.draw();
 		this.guilded.draw();
 		this.source.draw();
@@ -17,11 +18,27 @@ const TopBar = Interface.add({
 		this.settings.draw();
 	},
 	onMousedown(x, y) {
+		this.fullScreen.tryCursorEvent("mousedown", x, y);
 		this.discord.tryCursorEvent("mousedown", x, y);
 		this.guilded.tryCursorEvent("mousedown", x, y);
 		this.source.tryCursorEvent("mousedown", x, y);
 		this.controls.tryCursorEvent("mousedown", x, y);
 		this.settings.tryCursorEvent("mousedown", x, y);
+	}
+});
+
+function isFullScreen() {
+	return window.fullScreen || document.fullscreen || document.fullscreenElement;
+}
+
+TopBar.fullScreen = TopBar.subcomponent({
+	top: 0,
+	left: 0,
+	draw() {
+		drawImage(isFullScreen() ? "collapse" : "expand", 0, 0);
+	},
+	onMousedown() {
+		isFullScreen() ? document.exitFullscreen() : document.documentElement.requestFullscreen();
 	}
 });
 

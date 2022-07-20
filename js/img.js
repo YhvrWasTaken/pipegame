@@ -19,8 +19,8 @@ let imgs = [
 	"arrow-left",
 	"arrow-right",
 
-	// "inv",
-	// "inv-open",
+	"inv-open",
+	"inv",
 	"shop-open",
 	"shop",
 	"upg-open",
@@ -34,6 +34,8 @@ let imgs = [
 	"info-open",
 	"info",
 
+	"collapse",
+	"expand",
 	"settings",
 	"discord-icon",
 	"guilded-icon",

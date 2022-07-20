@@ -1,8 +1,8 @@
 "use strict";
 
 let sidebarMenu = "shop";
-let sidebarShopPage = 0;
-
+let sidebarShopPage = 0,
+	sidebarShopUpgPage = 0;
 function drawSidebarArrows(y = 540) {
 	drawImage("arrow-left", 660, y);
 	drawImage("arrow-right", 780, y);

@@ -39,7 +39,7 @@ const RebirthTab = Interface.add({
 	right: 0,
 	bottom: 3,
 	width: 3,
-	height: 6,
+	height: 4,
 	zIndex: 2,
 	draw() {
 		switch (rebirthSubMenu) {
@@ -168,13 +168,13 @@ function drawRebirthShop() {
 }
 
 function drawRebirthConfirmation() {
-	drawText("Are you sure?", 90, 160, {
+	drawText("Are you sure?", 90, 100, {
 		color: "#ffdddd",
 		align: "center",
 		font: "20px monospace",
 	});
-	drawImage("yes-button", 0, 180);
-	drawImage("no-button", 120, 180);
+	drawImage("yes-button", 0, 120);
+	drawImage("no-button", 120, 120);
 }
 
 function drawRebirthInfo() {
