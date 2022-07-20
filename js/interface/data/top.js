@@ -7,7 +7,7 @@ const TopBar = Interface.add({
 	left: 0,
 	width: 0,
 	height: 1,
-	zIndex: 1,
+	zIndex: 2,
 	draw() {
 		this.background(player.options.dark ? "#222" : "#888");
 		this.discord.draw();

@@ -25,7 +25,7 @@ canvas.addEventListener("mousedown", e => {
 	if (isLoading) return;
 	if (!hasStartedGame) {
 		hasStartedGame = true;
-		document.documentElement.requestFullscreen();
+		if (player.options.mobileControls) document.documentElement.requestFullscreen();
 		return;
 	}
 	if (placing.isnt("nothing") && e.button === 2) deleteBlock();
