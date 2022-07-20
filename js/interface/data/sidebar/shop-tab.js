@@ -125,7 +125,7 @@ SidebarShopTab.inv = SidebarShopTab.subcomponent({
 		analyzing = false;
 		const page = shopItems[sidebarShopPage];
 		if (page === undefined) return;
-		const item = page[y - 2];
+		const item = page[floor(y)];
 		if (item === undefined) return;
 		if (player.money.gte(item[1]) && placing.is("nothing")) {
 			// . player.money = player.money.sub(item[1]);

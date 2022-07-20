@@ -88,6 +88,18 @@ window.addEventListener("keydown", e => {
 			ControlsTab.isVisible = false;
 			SettingsTab.isVisible = false;
 			break;
+		case "ArrowLeft":
+			offsetLeft();
+			break;
+		case "ArrowRight":
+			offsetRight();
+			break;
+		case "ArrowUp":
+			offsetUp();
+			break;
+		case "ArrowDown":
+			offsetDown();
+			break;
 	}
 });
 

@@ -317,7 +317,7 @@ class Subcomponent extends ComponentBasic {
 
 	tryCursorEvent(type, x, y, e) {
 		if (this.isVisible && this.hasCursor(x, y)) {
-			this.config[`on${capitalize(type)}`].bind(this)(x, y, e);
+			this.config[`on${capitalize(type)}`].bind(this)(x - this.left, y - this.top, e);
 		}
 	}
 }

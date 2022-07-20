@@ -1,4 +1,10 @@
 let boardX = 0, boardY = 0, boardXUnrounded = 0, boardYUnrounded = 0;
+let boardOffset = [0, 0], visBoardOffset = [0, 0];
+const maxBoardOffset = [() => 14 - Interface.width, () => 13 - Interface.height];
+const offsetUp = () => boardOffset[1] > 0 ? boardOffset[1]-- : 0,
+	offsetDown = () => boardOffset[1] < maxBoardOffset[1]() ? boardOffset[1]++ : 0,
+	offsetLeft = () => boardOffset[0] > 0 ? boardOffset[0]-- : 0,
+	offsetRight = () => boardOffset[0] < maxBoardOffset[0]() ? boardOffset[0]++ : 0
 // Part of board which is unused background
 Interface.add({
 	bottom: 0,
@@ -22,7 +28,7 @@ const Board = Interface.add({
 		world.forEach((what, x) => {
 			what.forEach((item, y) => {
 				if (item.is("nothing")) return;
-				drawBlock(item.id, x * 60, y * 60, item.r, 1, item.data);
+				drawBlock(item.id, (x - visBoardOffset[0]) * 60, (y - visBoardOffset[1]) * 60, item.r, 1, item.data);
 			});
 		});
 
@@ -32,14 +38,12 @@ const Board = Interface.add({
 			drawChunk(openAnalysis, true);
 		}
 	},
-	onMousedown(x, y, e) {
-		if (player.options.mobileControls) return;
-		x = floor(x);
-		y = floor(y);
+	onMousedown(_x, _y, e) {
 		if (analyzing) {
 			checkAnalysis();
 			return;
 		}
+		if (player.options.mobileControls) return;
 
 		if (e.button === 2) {
 			if (placing.is("nothing")) control.multibreak = true;
@@ -48,13 +52,13 @@ const Board = Interface.add({
 			return;
 		}
 
-		interactWithBoard(x, y, e.shiftKey);
+		interactWithBoard(boardX, boardY, e.shiftKey);
 	},
 	onMousemove(x, y) {
-		boardXUnrounded = x;
-		boardYUnrounded = y;
-		boardX = Math.max(0, Math.min(floor(x), 10));
-		boardY = Math.max(0, Math.min(floor(y), 10));
+		boardXUnrounded = x + boardOffset[0];
+		boardYUnrounded = y + boardOffset[1];
+		boardX = Math.max(0, Math.min(floor(x + boardOffset[0]), 10));
+		boardY = Math.max(0, Math.min(floor(y + boardOffset[1]), 10));
 		if (control.multibreak) deleteBlock();
 		let ground = copyBlock(world[boardX][boardY]);
 		if (control.multiplace && ground.is("nothing")) {
@@ -84,7 +88,7 @@ const BoardParticleDisplay = Interface.add({
 
 		particles.forEach(p => {
 			ctx.globalAlpha = Math.max(p.a, 0);
-			drawBlock(p.img, p.x, p.y, p.r, p.s);
+			drawBlock(p.img, p.x - visBoardOffset[0] * 60, p.y - visBoardOffset[1] * 60, p.r, p.s);
 		});
 	}
 })

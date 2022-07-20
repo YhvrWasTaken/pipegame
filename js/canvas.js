@@ -103,8 +103,8 @@ function draw(diff) {
 }
 
 function drawChunk(chunk, isAnal = false) {
-	const x = chunk.x + chunk.offset[0];
-	const y = chunk.y + chunk.offset[1];
+	const x = chunk.x + chunk.offset[0] - visBoardOffset[0];
+	const y = chunk.y + chunk.offset[1] - visBoardOffset[1];
 	if (chunk.data.upg[4] === 1)
 		drawRect(x * 60 - 12, y * 60 - 12, 12, 12, `red`);
 	if (chunk.data.upg[4] === 2)
@@ -197,6 +197,7 @@ function drawLoading() {
 }
 
 function tickSmooth() {
+	// Don't know why but these NaN on load sometimes
 	if (isNaN(visCellX)) visCellX = cellX;
 	if (isNaN(visCellY)) visCellY = cellY;
 	// Make the stuff ***S M O O T H***
@@ -208,6 +209,9 @@ function tickSmooth() {
 	cursorAlpha = (cursorAlpha + cursorVisible * 0.25) / 1.25;
 
 	visCursorScale = (visCursorScale + cursorScale * 0.3) / 1.3;
+
+	visBoardOffset[0] = (visBoardOffset[0] + boardOffset[0] * 0.2) / 1.2;
+	visBoardOffset[1] = (visBoardOffset[1] + boardOffset[1] * 0.2) / 1.2;
 }
 
 let mobileShowTooltip;

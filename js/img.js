@@ -18,6 +18,7 @@ let imgs = [
 
 	"arrow-left",
 	"arrow-right",
+	"caret",
 
 	"inv-open",
 	"inv",
