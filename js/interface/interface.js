@@ -217,6 +217,8 @@ class Interface extends ComponentBasic {
 
 	static layers = []
 
+	static hoveredElement = null
+
 	static add(config) {
 		const zIndex = config.zIndex || 0;
 		if (!this.layers[zIndex]) this.layers[zIndex] = [];
@@ -247,6 +249,7 @@ class Interface extends ComponentBasic {
 	}
 
 	static dispatchCursorEvent(eventName, event) {
+		const isMousemove = eventName === "mousemove";
 		let layers = [...this.layers].filter(x => x);
 		layers.reverse();
 		for (const layer of layers) {
@@ -254,11 +257,22 @@ class Interface extends ComponentBasic {
 			for (const item of reverseLayer) {
 				if (item.hasCursorEvents && item.hasCursor()) {
 					const relX = event.offsetX / blockWidth - item.left, relY = event.offsetY / blockWidth - item.top;
+					if (isMousemove) {
+						if (item !== this.hoveredElement) {
+							this.hoveredElement?.onMouseleave?.();
+							this.hoveredElement = item;
+							item.onMouseenter?.();
+						}
+					}
 					item[`on${capitalize(eventName)}`](relX, relY, event);
 					return;
 				}
 			}
 		}
+	}
+
+	static dispatchMouseLeave() {
+		this.hoveredElement?.onMouseup?.();
 	}
 }
 

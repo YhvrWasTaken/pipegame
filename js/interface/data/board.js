@@ -1,6 +1,6 @@
 let boardX = 0, boardY = 0, boardXUnrounded = 0, boardYUnrounded = 0;
 let boardOffset = [0, 0], visBoardOffset = [0, 0];
-const maxBoardOffset = [() => 14 - Interface.width, () => 13 - Interface.height];
+const maxBoardOffset = [() => Math.max(14 - Interface.width, 0), () => Math.max(13 - Interface.height, 0)];
 const offsetUp = () => boardOffset[1] > 0 ? boardOffset[1]-- : 0,
 	offsetDown = () => boardOffset[1] < maxBoardOffset[1]() ? boardOffset[1]++ : 0,
 	offsetLeft = () => boardOffset[0] > 0 ? boardOffset[0]-- : 0,

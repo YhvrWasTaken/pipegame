@@ -64,6 +64,7 @@ id("canvas-container").addEventListener("mouseenter", e => {
 
 id("canvas-container").addEventListener("mouseleave", () => {
 	cursorVisible = false;
+	Interface.dispatchMouseLeave();
 });
 
 let smoothTick = 0;
@@ -252,6 +253,9 @@ function resizeCanvas() {
 
 	Board.left = Interface.width < 14 ? 0 : Math.floor((Interface.width - 14) / 2);
 	Board.top = Interface.height < 12 ? 1 : Math.floor((Interface.height - 12) / 2) + 1;
+
+	boardOffset[0] = Math.min(boardOffset[0], maxBoardOffset[0]());
+	boardOffset[1] = Math.min(boardOffset[1], maxBoardOffset[1]());
 
 	if (canvas.height / blockWidth <= 11) {
 		SidebarResources.money.config.switchToTop();

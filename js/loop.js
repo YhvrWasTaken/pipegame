@@ -71,14 +71,7 @@ let errors = 0;
 
 window.addEventListener("error", () => {
 	errors++;
-	if (errors < 2) {
-		console.log(
-			`An error occured.\nThe game will try to recover gracefully. Probably won't succeed.`
-		);
-		window.requestAnimationFrame(loop);
-	} else if (errors === 2) {
-		console.log("Check the console. I give up.");
-	}
+	alert("A console error occurred- Please check the console");
 });
 
 let lastMoney = player.money;
