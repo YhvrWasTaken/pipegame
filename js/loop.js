@@ -33,8 +33,7 @@ function loop(now) {
 		lastTick = Date.now();
 
 		if (diff >= 1000) {
-			lastTick -= diff - 1000;
-
+			player.fastTime += diff / 1000 - 1;
 			diff = 1000;
 		}
 
