@@ -46,7 +46,7 @@ canvas.addEventListener("mousemove", e => {
 	cellY = floor(cellYSmall);
 	cursorVisible = true;
 
-	if (isLoading) return;
+	if (isLoading || !hasStartedGame) return;
 	Interface.dispatchCursorEvent("mousemove", e);
 });
 
@@ -86,6 +86,9 @@ function draw(diff) {
 	if (isLoading) {
 		// Basic progress UI when images are loading
 		drawLoading();
+	} else if (!hasStartedGame) {
+		drawImage("logo", canvas.width / 2 - 90, 60, 0, 2);
+		drawImage("continue", canvas.width / 2 - 30, window.innerHeight / 2 - 30, 0, 2);
 	} else {
 		Interface.drawAll();
 		tickParticles(diff);
@@ -96,9 +99,6 @@ function draw(diff) {
 		}
 
 		drawCursor(diff);
-
-		// drawParticles(diff);
-
 	}
 }
 

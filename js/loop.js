@@ -19,6 +19,12 @@ function loop(now) {
 
 	let animDiff = Date.now() - lastAnimTick;
 	lastAnimTick = Date.now();
+	if (!hasStartedGame) {
+		draw(animDiff / 1000);
+		updateDOM();
+		window.requestAnimationFrame(loop);
+		return;
+	}
 	if (paused) {
 		if (!player.dev) player.fastTime += animDiff / 1000;
 		lastTick = Date.now();

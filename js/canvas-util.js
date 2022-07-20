@@ -3,6 +3,7 @@
 function zoomLevel() {
 	return player.options.zoomLevel < 0 ? Math.pow(1.04, player.options.zoomLevel) : 1 + 0.04 * player.options.zoomLevel;
 }
+
 // https://stackoverflow.com/a/43155027
 function drawImage(img, x, y, rot = 0, scale = 1) {
 	if (img === "nothing") return;

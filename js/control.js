@@ -21,7 +21,13 @@ canvas.addEventListener("mousedown", e => {
 	cellYSmall = my / blockWidth;
 	e.preventDefault();
 
+
 	if (isLoading) return;
+	if (!hasStartedGame) {
+		hasStartedGame = true;
+		document.documentElement.requestFullscreen();
+		return;
+	}
 	if (placing.isnt("nothing") && e.button === 2) deleteBlock();
 	else Interface.dispatchCursorEvent("mousedown", e);
 });
@@ -38,7 +44,7 @@ canvas.addEventListener("click", e => {
 });
 
 window.addEventListener("mouseup", e => {
-	if (isLoading) return;
+	if (isLoading || !hasStartedGame) return;
 	if (e.button === 0) control.multiplace = false;
 	if (e.button === 2) {
 		control.multibreak = false;
@@ -49,6 +55,7 @@ window.addEventListener("mouseup", e => {
 });
 
 window.addEventListener("keypress", e => {
+	if (isLoading || !hasStartedGame) return;
 	switch (e.key) {
 		case "a":
 			analyzing = !analyzing;
@@ -73,6 +80,7 @@ window.addEventListener("keypress", e => {
 
 window.addEventListener("keydown", e => {
 	shiftDown = e.shiftKey;
+	if (isLoading || !hasStartedGame) return;
 	switch(e.key) {
 		case "Escape":
 		case "Esc":

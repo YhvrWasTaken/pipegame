@@ -2,6 +2,7 @@
 
 /* eslint-disable max-len */
 
+let hasStartedGame = false;
 const { ceil, floor, abs } = Math;
 const id = n => document.getElementById(n);
 const gid = id;
