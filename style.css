@@ -12,6 +12,9 @@ body.s-base--dark {
 	top: 0;
 	left: 50%;
 	transform: translateX(-50%);
+}
+
+canvas {
 	transition: 10s filter;
 }
 

@@ -96,8 +96,8 @@ const RebirthTab = Interface.add({
 
 RebirthTab.rebirth = {
 	request: RebirthTab.subcomponent({ top: 0, left: 0, width: 0 }),
-	confirm: RebirthTab.subcomponent({ top: 3, left: 0 }),
-	deny: RebirthTab.subcomponent({ top: 3, right: 0 })
+	confirm: RebirthTab.subcomponent({ top: 2, left: 0 }),
+	deny: RebirthTab.subcomponent({ top: 2, right: 0 })
 };
 
 RebirthTab.shop = {

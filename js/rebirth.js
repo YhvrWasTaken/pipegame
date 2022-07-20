@@ -40,6 +40,7 @@ const rebirthTexts = [
 
 function rebirthAnimation() {
 	rebirthSubMenu = "rebshop";
+	shopSubMenu = "inv";
 	sidebarMenu = "shop";
 	sidebarShopPage = 0;
 
