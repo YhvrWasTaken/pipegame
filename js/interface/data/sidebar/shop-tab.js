@@ -49,7 +49,7 @@ ShopTabButtons.tabs = {
 };
 
 SidebarShopTab.upg = SidebarShopTab.subcomponent({
-	top: 0,
+	left: 0,
 	bottom: 0,
 	width: 0,
 	height: 4,
