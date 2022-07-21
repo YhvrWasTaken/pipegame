@@ -50,7 +50,7 @@ const SidebarResources = {
 		},
 		switchToTop() {
 			SidebarResources.money.top = 0;
-			SidebarResources.money.left = 0;
+			SidebarResources.money.left = 1;
 		},
 		switchToSidebar() {
 			SidebarResources.money.top = 1;
@@ -103,7 +103,7 @@ const SidebarResources = {
 		},
 		switchToTop() {
 			SidebarResources.maxGensAndSquares.top = 0;
-			SidebarResources.maxGensAndSquares.left = 3;
+			SidebarResources.maxGensAndSquares.left = 4;
 		},
 		switchToSidebar() {
 			SidebarResources.maxGensAndSquares.top = 2;
@@ -142,7 +142,7 @@ const SidebarResources = {
 		},
 		switchToTop() {
 			SidebarResources.shards.top = 0;
-			SidebarResources.shards.left = 5;
+			SidebarResources.shards.left = 6;
 		},
 		switchToSidebar() {
 			SidebarResources.shards.top = 3;
