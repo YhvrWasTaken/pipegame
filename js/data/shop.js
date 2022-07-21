@@ -83,7 +83,7 @@ const shopItems = [
 	["upgradett7", 1.0e38],
 	["gent5", 5.0e38],
 	["genn1", 1.0e39],
-	["upgrade23", 1.0e40],
+	//["upgrade23", 1.0e40],
 ];
 
 const rebirthShopItems = [
