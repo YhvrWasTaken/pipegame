@@ -283,8 +283,8 @@ class Subcomponent extends ComponentBasic {
 	constructor(parent, config) {
 		super(config);
 		this.parent = parent;
-		this.width = this.width ?? 1;
-		this.height = this.height ?? 1;
+		this.width = this.config.width ?? 1;
+		this.height = this.config.height ?? 1;
 	}
 
 	get parentWidth() {

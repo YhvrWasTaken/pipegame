@@ -73,11 +73,11 @@ const AnalTabPaginator = Interface.add(extend(Paginator, {
 	right: 0,
 	bottom: 1,
 	zIndex: 2,
-	page() {
+	get page() {
 		return analPage;
 	},
-	changePage(x) {
-		analPage += x;
+	set page(x) {
+		analPage = x;
 	},
 	maxPage() {
 		return floor(openAnalysis.data.path.length / 15);

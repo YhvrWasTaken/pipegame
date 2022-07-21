@@ -138,6 +138,14 @@ const upgrades = {
 		}
 		return false;
 	},
+	upgrade23: (value, data) => {
+		if (data.upg[28] < 2) {
+			data.upg[28]++;
+			data.upg[5] = 0;
+			return { value: value.pow(0.8), data };
+		}
+		return false;
+	},
 
 	upgradet1: upgradeWithTriAndCap(8, 1, 1, 10),
 	upgradet2: upgradeWithTriAndCap(9, 1, 1, 3),

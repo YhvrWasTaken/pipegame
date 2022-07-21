@@ -112,15 +112,15 @@ const RebirthTabPaginator = Interface.add(extend(Paginator, {
 	right: 0,
 	bottom: 2,
 	zIndex: 2,
-	page() {
+	get page() {
 		return rebirthSubMenu === "rebshop" ? rebirthShopPage : rebirthDecorPage;
 	},
-	changePage(x) {
-		if (rebirthSubMenu === "rebshop") rebirthShopPage += x;
-		else rebirthDecorPage += x;
+	set page(x) {
+		if (rebirthSubMenu === "rebshop") rebirthShopPage = x;
+		else rebirthDecorPage = x;
 	},
 	maxPage() {
-		return player.rebirth - 1;
+		return 1;
 	},
 	get isVisible() {
 		return sidebarMenu === "rebirth" && (rebirthSubMenu === "rebshop" || rebirthSubMenu === "decor");

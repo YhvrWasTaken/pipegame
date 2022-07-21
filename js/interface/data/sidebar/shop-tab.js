@@ -1,8 +1,10 @@
 const SidebarShopTab = Interface.add({
 	right: 0,
-	bottom: 2,
+	bottom: 3,
 	width: 3,
-	height: 5,
+	get height() {
+		return Math.min(Math.max(Interface.height - 8, 4), 7);
+	},
 	zIndex: 2,
 	draw() {
 		this.inv.draw();
@@ -48,7 +50,7 @@ ShopTabButtons.tabs = {
 
 SidebarShopTab.upg = SidebarShopTab.subcomponent({
 	top: 0,
-	left: 0,
+	bottom: 0,
 	width: 0,
 	height: 4,
 	draw() {
@@ -80,34 +82,11 @@ SidebarShopTab.inv = SidebarShopTab.subcomponent({
 	top: 0,
 	left: 0,
 	width: 0,
-	height: 4,
+	height: 0,
 	draw() {
-		let items = [];
-		if (shopItems[sidebarShopPage] === undefined)
-			drawText("no", 90, 285, {
-				align: "center",
-				color: "white",
-				font: "50px monospace",
-			});
-		else {
-			items = shopItems[sidebarShopPage];
-		}
-
-		if (!hasMenuVisible() && this.hasCursor()) {
-			if (shopItems[sidebarShopPage] === undefined) return;
-			let text = shopTooltips[shopItems[sidebarShopPage][this.relativeY(cellY)][0]];
-			if (text === undefined) text = "[No tooltip provided]";
-			ctx.font = "15px sans-serif";
-			let lines = calcWrapText(text, 220);
-			drawTooltip(
-				text,
-				-10,
-				this.relativeY(visCellY) * 60 + 35 - lines * 6,
-				"right",
-				220,
-				lines
-			);
-		}
+		if (shopItems[sidebarShopPage * this.height] === undefined)
+			sidebarShopPage = Math.ceil(shopItems.length / this.height);
+		const items = shopItems.slice(sidebarShopPage * this.height, (sidebarShopPage + 1) * this.height);
 
 		items.forEach((item, i) => {
 			drawBlock(item[0], 0, i * 60, 0, 0.75);
@@ -120,12 +99,28 @@ SidebarShopTab.inv = SidebarShopTab.subcomponent({
 					});
 			}
 		});
+
+		if (!hasMenuVisible() && this.hasCursor()) {
+			if (!items[this.relativeY(cellY)]) return;
+			let text = shopTooltips[items[this.relativeY(cellY)][0]];
+			if (text === undefined) text = "[No tooltip provided]";
+			ctx.font = "15px sans-serif";
+			let lines = calcWrapText(text, 220);
+			drawTooltip(
+				text,
+				-10,
+				this.relativeY(visCellY) * 60 + 35 - lines * 6,
+				"right",
+				220,
+				lines
+			);
+		}
 	},
 	onMousedown(_, y) {
 		analyzing = false;
-		const page = shopItems[sidebarShopPage];
-		if (page === undefined) return;
-		const item = page[floor(y)];
+		if (shopItems[sidebarShopPage * this.height] === undefined)
+			sidebarShopPage = Math.ceil(shopItems.length / this.height);
+		const item = shopItems[sidebarShopPage * this.height + floor(y)];
 		if (item === undefined) return;
 		if (player.money.gte(item[1]) && placing.is("nothing")) {
 			// . player.money = player.money.sub(item[1]);
@@ -143,14 +138,14 @@ const SidebarShopInvPaginator = Interface.add(extend(Paginator, {
 	right: 0,
 	bottom: 2,
 	zIndex: 2,
-	page() {
-		return sidebarShopPage;
+	get page() {
+		return Math.min(sidebarShopPage, this.maxPage());
 	},
-	changePage(x) {
-		sidebarShopPage += x;
+	set page(x) {
+		sidebarShopPage = x;
 	},
 	maxPage() {
-		return shopItems.length - 1;
+		return Math.ceil(shopItems.length / SidebarShopTab.height) - 1;
 	},
 	get isVisible() {
 		return sidebarMenu === "shop" && shopSubMenu === "inv";

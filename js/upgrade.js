@@ -45,7 +45,8 @@
 //   1: locked
 //   2: ran thru t1-8
 // 27: ttupg7 status
-const defaultData = new Array(28).fill(0);
+// 28: upg23 status (resets upg12/upg22 cap)
+const defaultData = new Array(29).fill(0);
 
 // This function is on the VERGE of being hated by ESLint
 // ESLint hates it
