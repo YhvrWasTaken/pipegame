@@ -256,7 +256,10 @@ class Interface extends ComponentBasic {
 			const reverseLayer = [...layer].reverse();
 			for (const item of reverseLayer) {
 				if (item.hasCursorEvents && item.hasCursor()) {
-					const relX = event.offsetX / blockWidth - item.left, relY = event.offsetY / blockWidth - item.top;
+					// I am very sorry for this code but at least it works on mobile decently-ish
+					const clientX = event.offsetX ?? event.touches[0].clientX,
+						clientY = event.offsetY ?? event.touches[0].clientY;
+					const relX = clientX / blockWidth - item.left, relY = clientY / blockWidth - item.top;
 					if (isMousemove) {
 						if (item !== this.hoveredElement) {
 							this.hoveredElement?.onMouseleave?.();

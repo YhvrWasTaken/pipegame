@@ -8,7 +8,7 @@ const InfoBar = Interface.add({
 		const textProps = {
 			font: "20px monospace",
 			color: "white"
-		}
+		};
 		drawText(`Fast time: ${format(player.fastTime)}s`, 5, 25, textProps);
 		drawText(`FPS: ${Math.round(fps)}`, 5, 45, textProps);
 	},

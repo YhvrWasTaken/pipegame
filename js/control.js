@@ -11,6 +11,8 @@ const control = {
 };
 
 let multibreakTimeout = 0;
+let isTouchDown = 0;
+let touchX = 0, touchY = 0;
 // HOLY SHIT I HATE THE CONTROLS
 canvas.addEventListener("mousedown", e => {
 	mx = Math.max(e.clientX - canvas.x + window.scrollX, 0);
@@ -28,8 +30,42 @@ canvas.addEventListener("mousedown", e => {
 		if (player.options.mobileControls) document.documentElement.requestFullscreen();
 		return;
 	}
+	if (isTouchDown) return;
 	if (placing.isnt("nothing") && e.button === 2) deleteBlock();
 	else Interface.dispatchCursorEvent("mousedown", e);
+});
+
+canvas.addEventListener("touchstart", e => {
+	mx = Math.max(e.touches[0].clientX - canvas.x + window.scrollX, 0);
+	my = Math.max(e.touches[0].clientY - canvas.y + window.scrollY, 0);
+	cellX = floor(mx / blockWidth);
+	cellY = floor(my / blockWidth);
+	cellXSmall = mx / blockWidth;
+	cellYSmall = my / blockWidth;
+	const notTouchDown = !isTouchDown;
+	isTouchDown++;
+	if (isLoading) return;
+	if (notTouchDown) {
+		Interface.dispatchCursorEvent("mousedown", e);
+	}
+});
+
+canvas.addEventListener("touchend", e => {
+	setTimeout(() => isTouchDown--, 5);
+	if (isLoading) return;
+	// Again I am very sorry for this but it has to work this way for the canvas interface
+	e.offsetX = touchX;
+	e.offsetY = touchY;
+	Interface.dispatchCursorEvent("mouseup", e);
+});
+
+canvas.addEventListener("touchcancel", e => {
+	setTimeout(() => isTouchDown = 0, 5);
+	if (isLoading) return;
+	// Again I am very sorry for this but it has to work this way for the canvas interface
+	e.offsetX = touchX;
+	e.offsetY = touchY;
+	Interface.dispatchCursorEvent("mouseup", e);
 });
 
 canvas.addEventListener("click", e => {
