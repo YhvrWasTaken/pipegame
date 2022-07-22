@@ -128,9 +128,7 @@ function drawChunk(chunk, isAnal = false) {
 			ctx.lineTo(x * 60 - 6, y * 60 + 6);
 			ctx.fill();
 		}
-	} else if (chunk.data.sv.eq(1.0e12)) {
-		drawImage("nubert", x * 60 - 30, y * 60 - 30, 0, 0.333);
-	} else
+	} else {
 		drawRect(
 			x * 60 - 10,
 			y * 60 - 10,
@@ -138,7 +136,8 @@ function drawChunk(chunk, isAnal = false) {
 			20,
 			`rgb(${chunk.color.join(", ")})`
 		);
-	
+		if (chunk.data.sv.eq(1e12)) drawImage("transparentbert", x * 60 - 30, y * 60 - 35, 0, 0.35);
+	}
 	if (isAnal) {
 		ctx.fillStyle = `rgba(255, 210, 128, ${Math.sin(Date.now() / 250) * 0.2 + 0.45})`
 		ctx.beginPath();

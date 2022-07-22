@@ -153,6 +153,7 @@ let imgs = [
 	"wigbert",
 	"gaybert",
 	"transbert",
+	"transparentbert",
 	"glassbert",
 	"greenbert",
 	"yellowbert",

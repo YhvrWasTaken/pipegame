@@ -10,7 +10,7 @@ const RebirthTabButtons = Interface.add({
 			drawImage(`${tab}${rebirthSubMenu === tab ? "-open" : ""}`, this.tabs[tab].left * 60, this.tabs[tab].top * 60);
 		}
 	},
-	onMousedown(x, y) {
+	onMousedown() {
 		for (const tab in this.tabs) {
 			if (!this.tabs[tab].config.requirement()) continue;
 			if (this.tabs[tab].hasCursor()) rebirthSubMenu = tab;
@@ -120,7 +120,7 @@ const RebirthTabPaginator = Interface.add(extend(Paginator, {
 		else rebirthDecorPage = x;
 	},
 	maxPage() {
-		return 1;
+		return 0;
 	},
 	get isVisible() {
 		return sidebarMenu === "rebirth" && (rebirthSubMenu === "rebshop" || rebirthSubMenu === "decor");

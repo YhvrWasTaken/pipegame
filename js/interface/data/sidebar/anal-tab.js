@@ -9,7 +9,7 @@ const AnalTab = Interface.add({
 		if (type === "tri") {
 			drawTriangleChunk(20, 20, `rgb(${openAnalysis.color.join(", ")})`);
 		} else {
-			if (openAnalysis.data.sv === "1000000000000")
+			if (openAnalysis.data.sv.eq(1e12))
 				drawImage("nubert", 0, 0, 0, 0.75);
 			else
 				drawRect(20, 20, 20, 20, `rgb(${openAnalysis.color.join(", ")})`);
