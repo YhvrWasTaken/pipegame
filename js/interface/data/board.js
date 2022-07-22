@@ -3,7 +3,7 @@ let boardOffset = [0, 0], visBoardOffset = [0, 0];
 const maxBoardOffset = [() => Math.max(14 - Interface.width, 0), () => Math.max(13 - Interface.height, 0)];
 const offsetUp = () => boardOffset[1] > 0 ? (boardOffset[1]--, boardY--, boardYUnrounded--) : 0,
 	offsetDown = () => boardOffset[1] < maxBoardOffset[1]() ? (boardOffset[1]++, boardY++, boardYUnrounded++) : 0,
-	offsetLeft = () => boardOffset[0] > 0 ? (boardOffset[0]--, boardYX--, boardXUnrounded--) : 0,
+	offsetLeft = () => boardOffset[0] > 0 ? (boardOffset[0]--, boardX--, boardXUnrounded--) : 0,
 	offsetRight = () => boardOffset[0] < maxBoardOffset[0]() ? (boardOffset[0]++, boardX++, boardXUnrounded++)  : 0
 // Part of board which is unused background
 Interface.add({

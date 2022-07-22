@@ -243,7 +243,12 @@ function resizeCanvas() {
 	const w = window.innerWidth, h = window.innerHeight;
 	blockWidth = Math.round(Math.min(Math.max(Math.min(w, h * 1.8) / 23.5, 35), 80) * zoomLevel());
 	document.body.style.setProperty("--block-width", `${blockWidth}px`);
-	
+
+	if (w <= 450) {
+		id("viewport-meta").setAttribute("content", "user-scalable=no, width=450, viewport-fit=cover");
+	} else {
+		id("viewport-meta").setAttribute("content", "uwidth=device-width, initial-scale=1.0, viewport-fit=cover");
+	}
 	canvas.width = Math.roundTo(w, blockWidth);
 	canvas.height = Math.roundTo(h, blockWidth);
 	canvas.x = canvas.getBoundingClientRect().x;
