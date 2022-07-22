@@ -174,8 +174,9 @@ class Interface extends ComponentBasic {
 		return this.cellPositionAtY(y) * 60;
 	}
 
-	hasCursor(x = cellX, y = cellY) {
+	hasCursor(x, y) {
 		if (!cursorVisible) return false;
+		if (y === undefined) return this.isVisible && Interface.hoveredElement === this;
 		return (x >= this.left && x < this.left + this.width) &&
 			(y >= this.top && y < this.top + this.height) && this.isVisible;
 	}
@@ -244,23 +245,28 @@ class Interface extends ComponentBasic {
 	}
 
 	static drawAll() {
-		for (const layer of this.layers.filter(x => x)) for (const item of layer) item.draw();
+		for (const layer of this.layers.filter(x => x))
+			for (const item of layer) {
+				item.draw();
+				if (item.isVisible !== item.previouslyVisible) this.checkHover();
+				item.previouslyVisible = item.isVisible;
+			}
 		ctx.resetTransform();
 	}
 
 	static dispatchCursorEvent(eventName, event) {
-		const isMousemove = eventName === "mousemove";
+		const checkHover = eventName === "mousemove";
 		let layers = [...this.layers].filter(x => x);
 		layers.reverse();
 		for (const layer of layers) {
 			const reverseLayer = [...layer].reverse();
 			for (const item of reverseLayer) {
-				if (item.hasCursorEvents && item.hasCursor()) {
+				if (item.hasCursorEvents && item.hasCursor(cellX, cellY)) {
 					// I am very sorry for this code but at least it works on mobile decently-ish
 					const clientX = event.offsetX ?? event.touches[0].clientX,
 						clientY = event.offsetY ?? event.touches[0].clientY;
 					const relX = clientX / blockWidth - item.left, relY = clientY / blockWidth - item.top;
-					if (isMousemove) {
+					if (checkHover) {
 						if (item !== this.hoveredElement) {
 							this.hoveredElement?.onMouseleave?.();
 							this.hoveredElement = item;
@@ -272,6 +278,27 @@ class Interface extends ComponentBasic {
 				}
 			}
 		}
+	}
+
+	static checkHover() {
+		if (this.checkHoverPromise) return;
+		this.checkHoverPromise = Promise.resolve().then(function() {
+			let layers = [...this.layers].filter(x => x);
+			layers.reverse();
+			for (const layer of layers) {
+				const reverseLayer = [...layer].reverse();
+				for (const item of reverseLayer) {
+					if (item.hasCursorEvents && item.hasCursor(cellX, cellY)) {
+						if (item !== this.hoveredElement) {
+							this.hoveredElement = item;
+							item.onMouseenter?.();
+							return;
+						}
+					}
+				}
+			}
+			delete this.checkHoverPromise;
+		}.bind(this));
 	}
 
 	static dispatchMouseLeave() {
@@ -314,7 +341,8 @@ class Subcomponent extends ComponentBasic {
 	hasCursor(x, y) {
 		if (!cursorVisible) return false;
 		if (x === undefined && y === undefined) {
-			return (cellX >= this.left + this.parent.left && cellX < this.left + this.parent.left + this.width) &&
+			return this.parent.hasCursor() &&
+			(cellX >= this.left + this.parent.left && cellX < this.left + this.parent.left + this.width) &&
 				(cellY >= this.top + this.parent.top && cellY < this.top + this.parent.top + this.height);
 		}
 		return (x >= this.left && x < this.left + this.width) &&
@@ -333,7 +361,7 @@ class Subcomponent extends ComponentBasic {
 	}
 
 	tryCursorEvent(type, x, y, e) {
-		if (this.isVisible && this.hasCursor(x, y)) {
+		if (this.isVisible && this.hasCursor()) {
 			this.config[`on${capitalize(type)}`].bind(this)(x - this.left, y - this.top, e);
 		}
 	}

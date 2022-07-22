@@ -39,7 +39,7 @@ BottomBar.trash = BottomBar.subcomponent({
 	width: 3,
 	draw() {
 		this.background("#f006");
-		drawImage("trashcan", 0, 0, 0, this.hasCursor() && !hasMenuVisible() && placing.isnt("nothing") ? 1.1 : 0.8);
+		drawImage("trashcan", 0, 0, 0, this.hasCursor() && placing.isnt("nothing") ? 1.1 : 0.8);
 	},
 	onMousedown() {
 		deleteBlock();
@@ -55,7 +55,7 @@ BottomBar.moveUpDown = extend({ stop() {
 	draw() {
 		if (boardOffset[1] > 0) drawImage("caret", 0, 0);
 		if (boardOffset[1] < maxBoardOffset[1]()) drawImage("caret", 0, 30, 180);
-		if (!this.hasCursor() || hasMenuVisible()) return;
+		if (!this.hasCursor()) return;
 		if (this.relativeY(cellYSmall) < 0.5) {
 			if (boardOffset[1] > 0) drawRect(0, 0, 60, 30, "#fff8");
 		} else {
@@ -80,7 +80,7 @@ BottomBar.moveLeftRight = extend({ stop() {
 		if (boardOffset[0] > 0) drawImage("caret", -60, 0);
 		if (boardOffset[0] < maxBoardOffset[0]()) drawImage("caret", -60, 30, 180);
 		ctx.rotate(Math.PI / 2);
-		if (!this.hasCursor() || hasMenuVisible()) return;
+		if (!this.hasCursor()) return;
 		if (this.relativeX(cellXSmall) < 0.5) {
 			if (boardOffset[0] > 0) drawRect(0, 0, 30, 60, "#fff8");
 		} else {
@@ -103,7 +103,7 @@ BottomBar.pause = BottomBar.subcomponent({
 	right: 1,
 	top: 0,
 	draw() {
-		drawImage(paused ? "continue" : "pause", 0, 0, 0, this.hasCursor() && !hasMenuVisible() ? 1.1 : 0.9);
+		drawImage(paused ? "continue" : "pause", 0, 0, 0, this.hasCursor() ? 1.1 : 0.9);
 	},
 	onMousedown() {
 		paused = !paused;
@@ -115,7 +115,7 @@ BottomBar.analyze = BottomBar.subcomponent({
 	top: 0,
 	draw() {
 		if (!analyzing) ctx.globalAlpha = 0.5;
-		drawImage("analyze", 0, 0, 0, this.hasCursor() && !hasMenuVisible() ? 0.8 : 0.6)
+		drawImage("analyze", 0, 0, 0, this.hasCursor() ? 0.8 : 0.6)
 		ctx.globalAlpha = 1;
 	},
 	onMousedown() {

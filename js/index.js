@@ -21,7 +21,7 @@ function updateDOM() {
 	document.body.className = player.options.dark ? "s-base--dark" : "";
 	const hoveringBlock = world[boardX][boardY].isnt("nothing");
 	const holdingBlock = placing.isnt("nothing");
-	if (player.options.mobileControls && Board.hasCursor() && !hasMenuVisible() && (hoveringBlock || holdingBlock)) {
+	if (player.options.mobileControls && Board.hasCursor() && (hoveringBlock || holdingBlock)) {
 		id("mobile-controls").style.visibility = "visible";
 		switch(hoveringBlock * 2 + holdingBlock) {
 			case 3:

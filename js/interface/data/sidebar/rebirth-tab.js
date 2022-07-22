@@ -13,7 +13,7 @@ const RebirthTabButtons = Interface.add({
 	onMousedown(x, y) {
 		for (const tab in this.tabs) {
 			if (!this.tabs[tab].config.requirement()) continue;
-			if (this.tabs[tab].hasCursor(x, y)) rebirthSubMenu = tab;
+			if (this.tabs[tab].hasCursor()) rebirthSubMenu = tab;
 		}
 	},
 	get isVisible() {
@@ -61,15 +61,15 @@ const RebirthTab = Interface.add({
 		if (rebirthAnim) return;
 		switch (rebirthSubMenu) {
 			case "info":
-				if (this.rebirth.request.hasCursor(x, y) && player.money.gte(rebirthCosts[player.rebirth]))
+				if (this.rebirth.request.hasCursor() && player.money.gte(rebirthCosts[player.rebirth]))
 					rebirthSubMenu = "confirm";
 				break;
 			case "confirm":
-				if (this.rebirth.confirm.hasCursor(x, y)) rebirthAnimation();
-				else if (this.rebirth.deny.hasCursor(x, y)) rebirthSubMenu = "info";
+				if (this.rebirth.confirm.hasCursor()) rebirthAnimation();
+				else if (this.rebirth.deny.hasCursor()) rebirthSubMenu = "info";
 				break;
 			case "rebshop":
-				if (this.shop.container.hasCursor(x, y)) {
+				if (this.shop.container.hasCursor()) {
 					let item = rebirthShopItems[rebirthShopPage][Math.floor(y) - this.shop.container.top];
 					if (player.money.gte(item[1]) && placing.is("nothing")) {
 						player.money = player.money.sub(item[1]);
@@ -79,7 +79,7 @@ const RebirthTab = Interface.add({
 				}
 				break;
 			case "decor":
-				if (this.decor.container.hasCursor(x, y)) {
+				if (this.decor.container.hasCursor()) {
 					let item = decor[rebirthDecorPage][Math.floor(y) - this.decor.container.top][Math.floor(x)];
 					if (placing.is("nothing")) {
 						placing = Block(item);

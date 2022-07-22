@@ -30,9 +30,9 @@ const ShopTabButtons = Interface.add({
 			drawImage(`${tab}${shopSubMenu === tab ? "-open" : ""}`, this.tabs[tab].left * 60, this.tabs[tab].top * 60);
 		}
 	},
-	onMousedown(x, y) {
+	onMousedown() {
 		for (const tab in this.tabs) {
-			if (this.tabs[tab].hasCursor(x, y)) shopSubMenu = tab;
+			if (this.tabs[tab].hasCursor()) shopSubMenu = tab;
 		}
 	},
 	get isVisible() {
@@ -100,7 +100,7 @@ SidebarShopTab.inv = SidebarShopTab.subcomponent({
 			}
 		});
 
-		if (!hasMenuVisible() && this.hasCursor()) {
+		if (this.hasCursor()) {
 			if (!items[this.relativeY(cellY)]) return;
 			let text = shopTooltips[items[this.relativeY(cellY)][0]];
 			if (text === undefined) text = "[No tooltip provided]";

@@ -33,20 +33,6 @@ const SidebarResources = {
 				font: "20px monospace",
 			});
 			drawImage("money", 0, 0);
-			/*
-			if (!this.hasCursor() || SettingsTab.isVisible) return;
-			ctx.textAlign = "start";
-			ctx.font = "12px sans-serif";
-			const tt = "How much money you have.";
-			let lines = calcWrapText(tt);
-			drawTooltip(
-				tt,
-				-10,
-				this.relativeY(visCellY) * 60 + 35 - lines * 6,
-				"right",
-				160,
-				lines
-			);*/
 		},
 		switchToTop() {
 			SidebarResources.money.top = 0;
@@ -76,30 +62,6 @@ const SidebarResources = {
 
 			drawImage("max-gens", -10, -12, 0, 0.65);
 			drawRect(10, 37, 20, 20, player.options.dark ? "#aaa" : "#000");
-			/*
-			if (!this.hasCursor() || SettingsTab.isVisible) return;
-			ctx.textAlign = "start";
-			ctx.font = "12px sans-serif";
-			let tt;
-			switch(this.relativeX(cellX)) {
-				case 0:
-					tt = "The current amount of genetors you have.";
-					break;
-				case 1:
-					tt = "The maximum amount of generators you can have AND the current amount of chunks on screen.";
-					break;
-				case 2:
-					tt = "The maximum amount of chunks you can have.";
-			}
-			let lines = calcWrapText(tt);
-			drawTooltip(
-				tt,
-				-10,
-				this.relativeY(visCellY) * 60 + 35 - lines * 6,
-				"right",
-				160,
-				lines
-			);*/
 		},
 		switchToTop() {
 			SidebarResources.maxGensAndSquares.top = 0;
@@ -124,21 +86,6 @@ const SidebarResources = {
 				font: "30px monospace",
 			});
 			drawImage("shards", 0, 0);
-			/*
-			if (!this.hasCursor() || SettingsTab.isVisible) return;
-			const tt = "The number of Shards you have.";
-
-			ctx.textAlign = "start";
-			ctx.font = "12px sans-serif";
-			let lines = calcWrapText(tt);
-			drawTooltip(
-				tt,
-				-10,
-				this.relativeY(visCellY) * 60 + 35 - lines * 6,
-				"right",
-				160,
-				lines
-			);*/
 		},
 		switchToTop() {
 			SidebarResources.shards.top = 0;

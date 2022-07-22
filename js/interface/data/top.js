@@ -46,7 +46,7 @@ TopBar.discord = TopBar.subcomponent({
 	top: 0,
 	right: 5,
 	draw() {
-		drawImage("discord-icon", 0, 0, 0, this.hasCursor() && !hasMenuVisible() ? 1.1 : 0.9);
+		drawImage("discord-icon", 0, 0, 0, this.hasCursor() ? 1.1 : 0.9);
 	},
 	onMousedown() {
 		window.open("https://yhvr.me/ego", "_blank");
@@ -57,7 +57,7 @@ TopBar.guilded = TopBar.subcomponent({
 	top: 0,
 	right: 4,
 	draw() {
-		drawImage("guilded-icon", 0, 0, 0, this.hasCursor() && !hasMenuVisible() ? 1.1 : 0.9);
+		drawImage("guilded-icon", 0, 0, 0, this.hasCursor() ? 1.1 : 0.9);
 	},
 	onMousedown() {
 		window.open("https://guilded.gg/yhvr", "_blank");
@@ -68,7 +68,7 @@ TopBar.source = TopBar.subcomponent({
 	top: 0,
 	right: 3,
 	draw() {
-		drawImage("sourcecode-icon", 0, 0, 0, this.hasCursor() && !hasMenuVisible() ? 1.1 : 0.9);
+		drawImage("sourcecode-icon", 0, 0, 0, this.hasCursor() ? 1.1 : 0.9);
 	},
 	onMousedown() {
 		window.open("https://gitlab.com/yhvr/pipegame", "_blank");
@@ -79,7 +79,7 @@ TopBar.controls = TopBar.subcomponent({
 	top: 0,
 	right: 1,
 	draw() {
-		drawImage("ctrl", 0, 0, 0, this.hasCursor() && !hasMenuVisible() ? 1.1 : 0.9);
+		drawImage("ctrl", 0, 0, 0, this.hasCursor() ? 1.1 : 0.9);
 	},
 	onMousedown() {
 		ControlsTab.isVisible = true;
@@ -95,7 +95,7 @@ TopBar.settings = TopBar.subcomponent({
 	top: 0,
 	right: 0,
 	draw() {
-		drawImage("settings", 0, 0, 0, this.hasCursor() && !hasMenuVisible() ? 1.1 : 0.9);
+		drawImage("settings", 0, 0, 0, this.hasCursor() ? 1.1 : 0.9);
 	},
 	onMousedown() {
 		SettingsTab.isVisible = true;
