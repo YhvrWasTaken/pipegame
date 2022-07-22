@@ -46,6 +46,7 @@ let TriChunkMerger = (function() {
 					);
 					for (const discardedChunk of localChunks[key]) {
 						removeFromWorld(discardedChunk);
+						discardedChunk.data.path[0] = "merged";
 						CanvasAnimator.add(tick => {
 							const alpha = tick / GROUP_ANIM_SPEED;
 							const [x, y] = [

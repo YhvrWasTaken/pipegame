@@ -142,7 +142,7 @@ const upgrades = {
 		if (data.upg[28] < 2) {
 			data.upg[28]++;
 			data.upg[5] = 0;
-			return { value: value.pow(0.8), data };
+			return { value: value.pow(0.9), data };
 		}
 		return false;
 	},

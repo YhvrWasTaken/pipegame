@@ -46,6 +46,12 @@ const AnalTab = Interface.add({
 						align: "center",
 						font: "30px monospace"
 					});
+				} else if (upg === "merged") {
+					drawText("MERGE", place[0] * 60 + 30, place[1] * 60 + 95, {
+						color: "#080",
+						align: "center",
+						font: "20px monospace"
+					});
 				} else {
 					drawBlock(upg[0], place[0] * 60, place[1] * 60 + 60);
 					if (!upg[1]) {
@@ -80,7 +86,7 @@ const AnalTabPaginator = Interface.add(extend(Paginator, {
 		analPage = x;
 	},
 	maxPage() {
-		return floor(openAnalysis.data.path.length / 15);
+		return Math.max(floor((openAnalysis.data.path.length - 1) / 15), 0);
 	},
 	get isVisible() {
 		return sidebarMenu === "anal";

@@ -38,8 +38,8 @@ function loop(now) {
 		}
 
 		if (analyzing) {
-			diff /= 2;
-			player.fastTime += diff / 1000;
+			player.fastTime += diff / 1000 * 3 / 4;
+			diff /= 4;
 		}
 
 		if (player.fastTime > 0 && !analyzing) {

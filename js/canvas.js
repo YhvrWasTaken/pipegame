@@ -95,7 +95,6 @@ function draw(diff) {
 		tickParticles(diff);
 		ctx.scale(blockWidth / 60, blockWidth / 60);
 		if (!hasMenuVisible()) {
-			CanvasAnimator.update();
 			if (shiftDown || (player.options.mobileControls && mobileShowTooltip)) drawHoverQuery();
 		}
 

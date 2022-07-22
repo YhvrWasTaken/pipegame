@@ -5,6 +5,8 @@
 let openAnalysis = null;
 let analPage = 0;
 
+const ERROR_MARGIN = 0.15;
+
 function checkAnalysis() {
 	let cx = boardXUnrounded;
 	let cy = boardYUnrounded;
@@ -19,12 +21,13 @@ function checkAnalysis() {
 		//         |      |
 		//         x------x
 		//  (x,y+20)      (x+20,y+20)
+		// +- 0.15 (which amounts to 9) for easier clicking
 		// I spent like an hour on this if statement
 		if (
-			cx > (chunk.x + chunk.offset[0]) &&
-			cx < (chunk.x + chunk.offset[0]) + THIRD &&
-			cy > (chunk.y + chunk.offset[1]) &&
-			cy < (chunk.y + chunk.offset[1]) + THIRD
+			cx > (chunk.x + chunk.offset[0] - ERROR_MARGIN) &&
+			cx < (chunk.x + chunk.offset[0] + ERROR_MARGIN) + THIRD &&
+			cy > (chunk.y + chunk.offset[1] - ERROR_MARGIN) &&
+			cy < (chunk.y + chunk.offset[1] + ERROR_MARGIN) + THIRD
 		) {
 			if (player.options.liveAnal) openAnalysis = chunk;
 			else openAnalysis = structuredClone(chunk);

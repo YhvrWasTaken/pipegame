@@ -37,6 +37,8 @@ const Board = Interface.add({
 		if (analyzing && openAnalysis && chunks.includes(openAnalysis)) {
 			drawChunk(openAnalysis, true);
 		}
+		
+		CanvasAnimator.update();
 	},
 	onMousedown(_x, _y, e) {
 		if (analyzing) {
