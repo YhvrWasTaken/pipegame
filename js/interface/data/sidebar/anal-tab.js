@@ -2,7 +2,7 @@ const AnalTab = Interface.add({
 	right: 0,
 	bottom: 2,
 	width: 3,
-	height: 7,
+	height: 6,
 	zIndex: 2,
 	draw() {
 		const type = openAnalysis.data.t;

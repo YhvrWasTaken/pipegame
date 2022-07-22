@@ -2,7 +2,7 @@
 // Well, it turns out in some cases the polyfilled version works and the non-polyfilled one doesn't
 // Whoops
 window.structuredClone = function(object) {
-	if (typeof object !== "object") return object;
+	if (typeof object !== "object" || object instanceof Decimal) return object;
 	let fillObject;
 	if (object.constructor === Array) fillObject = [];
 	else fillObject = {};
