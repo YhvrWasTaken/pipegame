@@ -46,6 +46,7 @@ canvas.addEventListener("touchstart", e => {
 	isTouchDown++;
 	if (isLoading) return;
 	if (notTouchDown) {
+		console.log("test", cellX, cellY);
 		Interface.dispatchCursorEvent("mousedown", e);
 	}
 });

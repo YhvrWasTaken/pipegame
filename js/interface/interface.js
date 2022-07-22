@@ -255,7 +255,7 @@ class Interface extends ComponentBasic {
 	}
 
 	static dispatchCursorEvent(eventName, event) {
-		const checkHover = eventName === "mousemove";
+		const checkHover = eventName === "mousemove" || eventName === "mousedown";
 		let layers = [...this.layers].filter(x => x);
 		layers.reverse();
 		for (const layer of layers) {

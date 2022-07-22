@@ -142,7 +142,7 @@ const upgrades = {
 		if (data.upg[28] < 2) {
 			data.upg[28]++;
 			data.upg[5] = 0;
-			return { value: value.pow(0.9), data };
+			return { value: value.pow(0.92), data };
 		}
 		return false;
 	},
@@ -292,6 +292,12 @@ const upgradeColors = {
 	upgrade15: "#884400",
 	upgrade16: "#888800",
 	upgrade17: "#448800",
+	upgrade18: "#008800",
+	upgrade19: "#008844",
+	upgrade20: "#008888",
+	upgrade21: "#883333",
+	upgrade22: "#004488",
+	upgrade23: "#000088",
 
 	upgradet1: "#ff0000",
 	upgradet2: "#ff8800",
