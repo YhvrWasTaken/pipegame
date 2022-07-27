@@ -33,7 +33,7 @@ function findCost(id) {
 	// TODO: cache flatted arrays?
 	// actually just turn it into an object
 	// of all costs
-	shopItems.flat().forEach(item => {
+	shopItems.forEach(item => {
 		if (item[0] === id) cost = item[1];
 	});
 	if (cost === 0)
