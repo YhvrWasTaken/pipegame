@@ -12,6 +12,23 @@ const ControlsTab = Interface.add({
 		drawImage("logo", Interface.width / 2 * 60 - 90, 0);
 		drawImage("controls", Interface.width / 2 * 60 - images.controls.width / 2, 120, 0, 1);
 
+		drawText("[Shift] LMB - Copy block", Interface.width / 2 * 60, 440, {
+			color: "white",
+			align: "center",
+			font: "12px monospace",
+		});
+		drawText("[Shift] Drag - Place Multiple", (Interface.width / 2) * 60, 455, {
+			color: "inherit",
+			align: "inherit",
+			font: "inherit",
+		});
+		drawText("Drag RMB - Delete Multiple", (Interface.width / 2) * 60, 470, {
+			color: "inherit",
+			align: "inherit",
+			font: "inherit",
+		});
+
+
 		this.back.draw();
 	},
 	onMousedown(x, y) {
