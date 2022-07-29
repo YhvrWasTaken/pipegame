@@ -26,14 +26,22 @@ function load() {
 	if (localStorage.getItem("pipegame-world-yhvr")) {
 		loadWorld();
 		loadPlayer();
-		
+
 		chunks = [];
 	} else {
-		const tryMatchMedia = window.matchMedia && window.matchMedia("(pointer: coarse)").matches;
-		const isTouchScreen = ('ontouchstart' in window || navigator.msMaxTouchPoint || tryMatchMedia);
+		const tryMatchMedia =
+			window.matchMedia && window.matchMedia("(pointer: coarse)").matches;
+		const isTouchScreen =
+			"ontouchstart" in window ||
+			navigator.msMaxTouchPoint ||
+			tryMatchMedia;
 		if (isTouchScreen) {
 			setTimeout(() => {
-				if (confirm("We have detected you are using a touchscreen device. Do you wish to turn on mobile controls?"))
+				if (
+					confirm(
+						"We have detected you are using a touchscreen device. Do you wish to turn on mobile controls?"
+					)
+				)
 					player.options.mobileControls = true;
 			}, 1000);
 		}
@@ -68,7 +76,8 @@ function decimalise(target) {
 }
 
 function coercePlayer(target, source) {
-	if (target === null || target === undefined || checkNaN(target)) return source;
+	if (target === null || target === undefined || checkNaN(target))
+		return source;
 	if (typeof target !== "object") return target;
 	let fillObject;
 	if (source.constructor === Array) fillObject = [];
@@ -80,7 +89,9 @@ function coercePlayer(target, source) {
 }
 
 function loadPlayer() {
-	let tempPlayer = decimalise(JSON.parse(localStorage.getItem("pipegame-player-yhvr-v2")));
+	let tempPlayer = decimalise(
+		JSON.parse(localStorage.getItem("pipegame-player-yhvr-v2"))
+	);
 	deepAssign(player, coercePlayer(tempPlayer, initialPlayerStart));
 
 	player.maxGensCost = D(genCapCosts[player.maxGens + 1]);
@@ -107,3 +118,31 @@ setInterval(() => {
 	if (shouldSave) save();
 	else console.warn("shouldSave was false!");
 }, 2500);
+
+function exportSave() {
+	const save =
+		btoa(localStorage.getItem("pipegame-world-yhvr")) +
+		"," +
+		btoa(localStorage.getItem("pipegame-player-yhvr-v2"));
+	navigator.clipboard.writeText(save);
+	if (!confirm("Attempted to copy to clipboard. Did you get it? (OK = Yes)")) {
+		prompt("Copy this:", save);
+	}
+}
+
+function importSave() {
+	shouldSave = false;
+
+	let save = prompt("Paste your save in here:");
+	if (!save) return;
+	save = save.split(",");
+	
+	// TODO FINISH THIS
+	localStorage.setItem("pipegame-world-yhvr", atob(save[0]));
+	localStorage.setItem("pipegame-player-yhvr-v2", atob(save[1]));
+	window.location.reload();
+	
+	setTimeout(() => {
+		shouldSave = true;
+	}, 5000);
+}

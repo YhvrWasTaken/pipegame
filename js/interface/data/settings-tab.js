@@ -122,6 +122,17 @@ SettingsTab.actions = (function() {
 			paused = !paused;
 		}
 	});
+		newSetting({
+		text: "Export",
+		onMousedown() {
+			exportSave();
+		}
+	}, {
+		text: "Import",
+		onMousedown() {
+			importSave();
+		}
+	})
 	newSetting({
 		text: "-",
 		option: "zoom",
