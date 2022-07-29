@@ -45,7 +45,7 @@ function interactWithBoard(x, y, multiplace = false) {
 		control.multiplace = true;
 	}
 
-	let should = true;
+	let shouldPickup = true;
 	let shouldPlace = true;
 	let shouldData = true;
 	let consumeOnNextPlace = false;
@@ -53,12 +53,14 @@ function interactWithBoard(x, y, multiplace = false) {
 	if (ground.is("nothing") && multiplace) {
 		let cost = findCost(placing.id);
 
-		if (player.money.gte(cost)) {
+		// The reason you multiply by 2 is because the cost of the item about to be
+		// placed has not been subtracted from player.money
+		if (player.money.gte(cost.mul(2))) {
 			// . player.money = player.money.sub(cost);
 			consumeOnNextPlace = true;
 			// . moneyParticles(mx / 60 - 11, my / 60, 5);
 
-			should = false;
+			shouldPickup = false;
 			shouldData = false;
 		}
 	} else if (placing.is("nothing") && multiplace) {
@@ -80,7 +82,7 @@ function interactWithBoard(x, y, multiplace = false) {
 		consumeOnPlace = false;
 	}
 	if (shouldPlace) world[x][y] = copyBlock(placing, shouldData);
-	if (should) placing = copyBlock(ground, shouldData);
+	if (shouldPickup) placing = copyBlock(ground, shouldData);
 	if (consumeOnNextPlace) consumeOnPlace = true;
 }
 function drawBlock(id, x, y, rot = 0, scale = 1, state) {
