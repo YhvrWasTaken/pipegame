@@ -103,31 +103,31 @@ function drawBlock(id, x, y, rot = 0, scale = 1, state) {
 
 const customDraw = {
 	upgradet1(state = 0) {
-		drawBasicTriUpg(state, 20, "rgb(127, 127, 127)");
+		drawBasicTriUpg(state, 20, "rgb(127, 127, 127)", "T1");
 	},
 	upgradet2(state = 0) {
-		drawBasicTriUpg(state, 20, "rgb(255, 127, 127)");
+		drawBasicTriUpg(state, 20, "rgb(255, 127, 127)", "T2");
 	},
 	upgradet3(state = 0) {
-		drawBasicTriUpg(state, 40, "rgb(255, 191, 127)");
+		drawBasicTriUpg(state, 40, "rgb(255, 191, 127)", "T3");
 	},
 	upgradet4(state = 0) {
-		drawBasicTriUpg(state, 80, "rgb(255, 255, 127)");
+		drawBasicTriUpg(state, 80, "rgb(255, 255, 127)", "T4");
 	},
 	upgradet5(state = 0) {
-		drawBasicTriUpg(state, 200, "rgb(191, 255, 127)");
+		drawBasicTriUpg(state, 200, "rgb(191, 255, 127)", "T5");
 	},
 	upgradet6(state = 0) {
-		drawBasicTriUpg(state, 10000, "rgb(127, 255, 127)");
+		drawBasicTriUpg(state, 10000, "rgb(127, 255, 127)", "T6");
 	},
 	upgradet7(state = 0) {
-		drawBasicTriUpg(state, 10000, "rgb(127, 255, 191)");
+		drawBasicTriUpg(state, 10000, "rgb(127, 255, 191)", "T7");
 	},
 	upgradet8(state = 0) {
-		drawBasicTriUpg(state, 10_000_000, "rgb(127, 255, 255)");
+		drawBasicTriUpg(state, 10_000_000, "rgb(127, 255, 255)", "T8");
 	},
 	upgradet9(state = 0) {
-		drawBasicTriUpg(state, 2.0e8, "rgb(127, 127, 127)");
+		drawBasicTriUpg(state, 2.0e8, "rgb(127, 127, 127)", "T9");
 		ctx.beginPath();
 		ctx.moveTo(-20, -15);
 		ctx.lineTo(0, 0);
@@ -173,13 +173,17 @@ function getColor(curr, max) {
 
 // TODO triangle.js
 
-function drawBasicTriUpg(state, max, arrow) {
+function drawBasicTriUpg(state, max, arrow, text) {
 	ctx.fillStyle = getColor(state, max);
 	ctx.fillRect(-30, -24, 60, 6);
 	ctx.fillRect(-30, 18, 60, 6);
 
 	ctx.fillStyle = "rgb(191, 191, 191)";
 	ctx.fillRect(-30, -18, 60, 36);
+
+	ctx.fillStyle = "black";
+	ctx.font = "10px monospace";
+	ctx.fillText(text, 15, 15);
 
 	ctx.strokeStyle = arrow;
 	ctx.fillStyle = arrow;
