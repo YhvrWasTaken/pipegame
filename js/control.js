@@ -10,6 +10,8 @@ const control = {
 	multiplace: false,
 };
 
+let iThinkItsMobile = false;
+
 let multibreakTimeout = 0;
 let isTouchDown = 0;
 let touchX = 0, touchY = 0;
@@ -30,12 +32,14 @@ canvas.addEventListener("mousedown", e => {
 		if (player.options.mobileControls) document.documentElement.requestFullscreen();
 		return;
 	}
-	if (isTouchDown) return;
+	if (isTouchDown || iThinkItsMobile) return;
 	if (placing.isnt("nothing") && e.button === 2) deleteBlock();
 	else Interface.dispatchCursorEvent("mousedown", e);
 });
 
 canvas.addEventListener("touchstart", e => {
+	iThinkItsMobile = true;
+
 	mx = Math.max(e.touches[0].clientX - canvas.x + window.scrollX, 0);
 	my = Math.max(e.touches[0].clientY - canvas.y + window.scrollY, 0);
 	cellX = floor(mx / blockWidth);
@@ -46,7 +50,6 @@ canvas.addEventListener("touchstart", e => {
 	isTouchDown++;
 	if (isLoading) return;
 	if (notTouchDown) {
-		console.log("test", cellX, cellY);
 		Interface.dispatchCursorEvent("mousedown", e);
 	}
 });
@@ -70,6 +73,8 @@ canvas.addEventListener("touchcancel", e => {
 });
 
 canvas.addEventListener("click", e => {
+	if (iThinkItsMobile) return;
+
 	mx = Math.max(e.clientX - canvas.x + window.scrollX, 0);
 	my = Math.max(e.clientY - canvas.y + window.scrollY, 0);
 	cellX = floor(mx / blockWidth);

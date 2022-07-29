@@ -14,7 +14,7 @@ const Paginator = {
 	},
 	onMousedown(x, _, e) {
 		if (floor(x) === 1) return;
-		const isRight = floor(x) === 2;
+		const isRight = floor(x) >= 2;
 		const maxPage = this.config.maxPage();
 		if (e.button === 2) {
 			if (isRight) this.config.page = maxPage;
