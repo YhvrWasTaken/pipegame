@@ -25,6 +25,9 @@ function loop(now) {
 		window.requestAnimationFrame(loop);
 		return;
 	}
+
+	if (player.money.lt(0)) player.money = D(0);
+
 	if (paused) {
 		if (!player.dev) player.fastTime += animDiff / 1000;
 		lastTick = Date.now();
