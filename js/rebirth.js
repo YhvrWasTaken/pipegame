@@ -97,6 +97,7 @@ function rebirthEffect() {
 	placing = Block("nothing");
 	// This might cause a crash with anal lol
 	chunks = [];
+	currSquares = 0;
 	if (player.shards.lte(5)) {
 		player.shards = D(10);
 	} else {
