@@ -32,6 +32,7 @@ function upgradeWithTriAndCap(id, maxUses, fuelReq, mult, func = "mul") {
 			return { block, keep: false };
 		}
 		if (block.data >= fuelReq && data.upg[id] < maxUses) {
+			if (data.upg[26] === 1) return false;
 			block.data -= fuelReq;
 			data.upg[id]++;
 			if (id <= 24) data.upg[26] = 2;

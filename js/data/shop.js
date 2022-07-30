@@ -203,37 +203,37 @@ const shopTooltips = {
 		"Resets the use cap of Tier 12/22 upgraders, but raises ■ value by 0.8. Has no effect after 3rd use.",
 
 	upgradet1:
-		"(Requires ▲1 to be inputted per ■ to work) Multiplies ■ value by 10. Has no effect after 1st use. (Tier T1)",
+		"(Requires ▲1 to be inputted per ■ to work) Multiplies ■ value by 10. Has no effect after 1st use. (Tier V1)",
 	upgradet2:
-		"(Requires ▲1 to be inputted work) Multiplies ■ value by 3. Has no effect after 1st use. (Tier T2)",
+		"(Requires ▲1 to be inputted work) Multiplies ■ value by 3. Has no effect after 1st use. (Tier V2)",
 	upgradet3:
-		"(Requires ▲2 to work) Multiplies ■ value by 5. Has no effect after 1st use. (Tier T3)",
+		"(Requires ▲2 to work) Multiplies ■ value by 5. Has no effect after 1st use. (Tier V3)",
 	upgradet4:
-		"(Requires ▲4) Multiplies ■ value by 3.3. Has no effect after 1st use. (Tier T4)",
+		"(Requires ▲4) Multiplies ■ value by 3.3. Has no effect after 1st use. (Tier V4)",
 	upgradet5:
-		"(▲20) Multiplies ■ value by 2. Has no effect after 2nd use. (Tier T5)",
+		"(▲20) Multiplies ■ value by 2. Has no effect after 2nd use. (Tier V5)",
 	upgradet6:
-		"(▲750) Multiplies ■ value by 4. Has no effect after 1st use. (Tier T6)",
+		"(▲750) Multiplies ■ value by 4. Has no effect after 1st use. (Tier V6)",
 	upgradet7:
-		"(▲1,000) Multiplies ■ value by 1.5, and removes the Frigid effect. Has no effect after 1st use. (Tier T7)",
+		"(▲1,000) Multiplies ■ value by 1.5, and removes the Frigid effect. Has no effect after 1st use. (Tier V7)",
 	upgradet8:
-		"(▲500,000) Multiplies ■ value by 10. Has no effect after 2nd use. (Tier T8)",
+		"(▲500,000) Multiplies ■ value by 10. Has no effect after 2nd use. (Tier V8)",
 	upgradet9:
-		"(▲1.00e7) Multiplies ■ value by 1.00e7. Prevents use of tier T1 to T8 upgraders. Can't be used if any T1 to T8 upgraders have been used. Has no effect after 1st use. (Tier T9)",
+		"(▲1.00e7) Multiplies ■ value by 1.00e7. Prevents use of tier V1 thru V8 upgraders. Can't be used if any tier V1 thru V8 upgraders have been used. Has no effect after 1st use. (Tier V9)",
 
 	upgradett1:
-		"Multiplies ▲ value by 2. Has no effect after 2nd use. (Tier T1)",
+		"Multiplies ▲ value by 2. Has no effect after 2nd use. (Tier A1)",
 	upgradett2:
-		"Multiplies ▲ value by 3. Has no effect after 1st use. (Tier T2)",
+		"Multiplies ▲ value by 3. Has no effect after 1st use. (Tier A2)",
 	upgradett3:
-		"Multiplies ▲ value by 5 if it has gone through 4 or more upgraders. Has no effect after 1st use. (Tier T3)",
+		"Multiplies ▲ value by 5 if it has gone through 4 or more upgraders. Has no effect after 1st use. (Tier A3)",
 	upgradett4:
-		"Adds 1 max use to Tier T1 ▲ Upgrader, and multiplies ▲ value by 1.5. Has no effect after 1st use. (Tier T4)",
+		"Adds 1 max use to Tier T1 ▲ Upgrader, and multiplies ▲ value by 1.5. Has no effect after 1st use. (Tier A4)",
 	upgradett5:
-		"Multiplies ▲ value by 3, but has a 20% chance to destroy it. Has no effect after 2nd use. (Tier T5)",
-	upgradett6: "Adds ▲250 to ▲ value. Infinite uses. (Tier T6)",
+		"Multiplies ▲ value by 3, but has a 20% chance to destroy it. Has no effect after 2nd use. (Tier A5)",
+	upgradett6: "Adds ▲250 to ▲ value. Infinite uses. (Tier A6)",
 	upgradett7:
-		"Multiplies ▲ value by 1.4. Has no effect after 5th use. (Tier T7)",
+		"Multiplies ▲ value by 1.4. Has no effect after 5th use. (Tier A7)",
 
 	upgrader1:
 		"Multiplies ■ value by the number of Shards you have. Has no effect after 1st use. (Tier R1)",

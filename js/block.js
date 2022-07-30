@@ -103,28 +103,28 @@ function drawBlock(id, x, y, rot = 0, scale = 1, state) {
 
 const customDraw = {
 	upgradet1(state = 0) {
-		drawBasicTriUpg(state, 20, "rgb(127, 127, 127)", "T1");
+		drawBasicTriUpg(state, 20, "rgb(127, 127, 127)", "V1");
 	},
 	upgradet2(state = 0) {
-		drawBasicTriUpg(state, 20, "rgb(255, 127, 127)", "T2");
+		drawBasicTriUpg(state, 20, "rgb(255, 127, 127)", "V2");
 	},
 	upgradet3(state = 0) {
-		drawBasicTriUpg(state, 40, "rgb(255, 191, 127)", "T3");
+		drawBasicTriUpg(state, 40, "rgb(255, 191, 127)", "V3");
 	},
 	upgradet4(state = 0) {
-		drawBasicTriUpg(state, 80, "rgb(255, 255, 127)", "T4");
+		drawBasicTriUpg(state, 80, "rgb(255, 255, 127)", "V4");
 	},
 	upgradet5(state = 0) {
-		drawBasicTriUpg(state, 200, "rgb(191, 255, 127)", "T5");
+		drawBasicTriUpg(state, 200, "rgb(191, 255, 127)", "V5");
 	},
 	upgradet6(state = 0) {
-		drawBasicTriUpg(state, 10000, "rgb(127, 255, 127)", "T6");
+		drawBasicTriUpg(state, 10000, "rgb(127, 255, 127)", "V6");
 	},
 	upgradet7(state = 0) {
-		drawBasicTriUpg(state, 10000, "rgb(127, 255, 191)", "T7");
+		drawBasicTriUpg(state, 10000, "rgb(127, 255, 191)", "V7");
 	},
 	upgradet8(state = 0) {
-		drawBasicTriUpg(state, 10_000_000, "rgb(127, 255, 255)", "T8");
+		drawBasicTriUpg(state, 10_000_000, "rgb(127, 255, 255)", "V8");
 	},
 	upgradet9(state = 0) {
 		drawBasicTriUpg(state, 2.0e8, "rgb(127, 127, 127)", "T9");
