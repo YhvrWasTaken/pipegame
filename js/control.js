@@ -196,6 +196,8 @@ function deleteBlock() {
 	let id = "nothing";
 	let rot = 0;
 	let held = false;
+	let shouldRefund = true;
+
 	if (placing.is("nothing") && Board.hasCursor()) {
 		id = world[boardX][boardY].id;
 		rot = world[boardX][boardY].r;
@@ -205,7 +207,10 @@ function deleteBlock() {
 		held = true;
 		rot = placing.r;
 		placing = Block("nothing");
+		if (consumeOnPlace) shouldRefund = false;
 	}
+
+	if (shouldRefund) player.money = player.money.add(findCost(id));
 
 	if (!held && id.startsWith("gen")) {
 		currentGens--;
