@@ -127,7 +127,7 @@ const customDraw = {
 		drawBasicTriUpg(state, 10_000_000, "rgb(127, 255, 255)", "V8");
 	},
 	upgradet9(state = 0) {
-		drawBasicTriUpg(state, 2.0e8, "rgb(127, 127, 127)", "T9");
+		drawBasicTriUpg(state, 2.0e8, "rgb(127, 127, 127)", "V9");
 		ctx.beginPath();
 		ctx.moveTo(-20, -15);
 		ctx.lineTo(0, 0);
