@@ -121,10 +121,10 @@ function addChunk(...args) {
 	}
 }
 
-function removeFromWorld(chunk) {
+function removeFromWorld(chunk, method = "gone") {
 	if (chunk.data.t === "square") currSquares--;
 	remove(chunks, chunk);
-	chunk.data.path.unshift("gone");
+	chunk.data.path.unshift(method);
 	chunk.data.path.splice(150);
 }
 
@@ -218,13 +218,13 @@ function tickChunks(mult) {
 		if (floor(chunk.x) >= 11) return removeFromWorld(chunk);
 		if (floor(chunk.y) >= 11) return removeFromWorld(chunk);
 
-		let [shouldExist, tile] = chunkShouldExist(
+		let [shouldExist, tile, method] = chunkShouldExist(
 			chunk,
 			world[floor(chunk.x)][floor(chunk.y)]
 		);
 		if (chunk.value.lt(0.01) && chunk.data.t === "tri") shouldExist = false;
 		world[floor(chunk.x)][floor(chunk.y)] = tile;
-		if (!shouldExist) return removeFromWorld(chunk);
+		if (!shouldExist) return removeFromWorld(chunk, method);
 
 		let {
 			x,
@@ -272,11 +272,15 @@ function tickChunks(mult) {
 
 // TODO furnace.js?
 function sellChunk(chunk, block) {
+	let method = "sellg"
 	let mult = furnaceMults[block.id];
 	if (typeof mult === "function") {
 		const out = mult(chunk, block);
 		if (out instanceof Decimal || typeof out === "number") mult = D(out);
-		else {
+		else if (out instanceof Array) {
+			mult = D(out[0]);
+			method = out[1] ? "sellg" : "sellb";
+		} else {
 			if (out.mult !== undefined) mult = out.mult;
 			if (out.block !== undefined) block = out.block;
 		}
@@ -308,15 +312,16 @@ function sellChunk(chunk, block) {
 			y: 50,
 		}
 	);
-	return block;
+	return [block, method];
 }
 
 function chunkShouldExist(chunk, tile) {
 	if (!tile.id.startsWith("conveyor") && !tile.id.startsWith("upgrade")) {
+		let method = "gone"
 		if (tile.id.startsWith("furnace")) {
-			tile = sellChunk(chunk, tile);
+			[tile, method] = sellChunk(chunk, tile);
 		}
-		return [false, tile];
+		return [false, tile, method];
 	}
 	return [true, tile];
 }

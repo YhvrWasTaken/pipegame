@@ -49,6 +49,8 @@ const messages = [
 	"the gay club",
 ];
 
-document.title = `pipegame (${
-	messages[Math.floor(Math.random() * messages.length)]
-})`;
+setInterval(() => {
+	document.title = `pipegame (${
+		messages[Math.floor(Math.random() * messages.length)]
+	})`;
+}, 1000 * 60);

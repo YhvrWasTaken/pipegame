@@ -48,9 +48,21 @@ const AnalTab = Interface.add({
 					});
 				} else if (upg === "merged") {
 					drawText("MERGE", place[0] * 60 + 30, place[1] * 60 + 95, {
-						color: "#080",
+						color: "#840",
 						align: "center",
 						font: "20px monospace"
+					});
+				} else if (upg === "sellg") {
+					drawText("SOLD", place[0] * 60 + 30, place[1] * 60 + 100, {
+						color: "#080",
+						align: "center",
+						font: "25px monospace",
+					});
+				} else if (upg === "sellb") {
+					drawText("WASTE", place[0] * 60 + 30, place[1] * 60 + 100, {
+						color: "#800",
+						align: "center",
+						font: "20px monospace",
 					});
 				} else {
 					drawBlock(upg[0], place[0] * 60, place[1] * 60 + 60);
