@@ -228,7 +228,7 @@ const shopTooltips = {
 	upgradett3:
 		"Multiplies ▲ value by 5 if it has gone through 4 or more upgraders. Has no effect after 1st use. (Tier T3)",
 	upgradett4:
-		"Adds 1 max use to Tier T1 ▲ Upgrader. Has no effect after 1st use. (Tier T4)",
+		"Adds 1 max use to Tier T1 ▲ Upgrader, and multiplies ▲ value by 1.5. Has no effect after 1st use. (Tier T4)",
 	upgradett5:
 		"Multiplies ▲ value by 3, but has a 20% chance to destroy it. Has no effect after 2nd use. (Tier T5)",
 	upgradett6: "Adds ▲250 to ▲ value. Infinite uses. (Tier T6)",
