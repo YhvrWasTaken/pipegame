@@ -286,7 +286,7 @@ function sellChunk(chunk, block) {
 		}
 	}
 
-	if (chunk.data.t !== "square") return block;
+	if (chunk.data.t !== "square") return [block, "gone"];
 
 	player.money = player.money.add(chunk.value.mul(mult));
 	addParticle(
