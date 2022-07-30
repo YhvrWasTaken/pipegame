@@ -247,7 +247,7 @@ function resizeCanvas() {
 	if (w <= 450) {
 		id("viewport-meta").setAttribute("content", "user-scalable=no, width=450, viewport-fit=cover");
 	} else {
-		id("viewport-meta").setAttribute("content", "uwidth=device-width, initial-scale=1.0, viewport-fit=cover");
+		id("viewport-meta").setAttribute("content", "width=device-width, initial-scale=1.0, viewport-fit=cover");
 	}
 	canvas.width = Math.roundTo(w, blockWidth);
 	canvas.height = Math.roundTo(h, blockWidth);
